@@ -77,6 +77,7 @@ export async function importerParticipantsAction(
           sexe: ligne.sexe,
           age_saisi: ligne.age_saisi,
           commune: ligne.commune,
+          commune_normalisee: ligne.commune_normalisee,
           profil: ligne.profil,
           participation: ligne.participation,
           consentement_infos: ligne.consentement_infos,

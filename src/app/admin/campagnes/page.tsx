@@ -19,6 +19,7 @@ interface RechercheParams {
   profil?: string;
   participation?: string;
   statut?: string;
+  ville?: string;
 }
 
 export default async function CampagnesPage({
@@ -35,6 +36,16 @@ export default async function CampagnesPage({
     .not("profil", "is", null);
   const profils = Array.from(
     new Set((profilsDistincts ?? []).map((p) => p.profil).filter(Boolean))
+  ).sort() as string[];
+
+  const { data: villesDistinctes } = await supabase
+    .from("participants")
+    .select("commune_normalisee")
+    .not("commune_normalisee", "is", null);
+  const villes = Array.from(
+    new Set(
+      (villesDistinctes ?? []).map((p) => p.commune_normalisee).filter(Boolean)
+    )
   ).sort() as string[];
 
   const { data: historique } = await supabase
@@ -93,6 +104,18 @@ export default async function CampagnesPage({
             </option>
           ))}
         </select>
+        <select
+          name="ville"
+          defaultValue={params.ville ?? ""}
+          className="rounded-md border border-zinc-300 px-3 py-2 text-sm"
+        >
+          <option value="">Toute ville</option>
+          {villes.map((v) => (
+            <option key={v} value={v}>
+              {v}
+            </option>
+          ))}
+        </select>
         <button
           type="submit"
           className="rounded-md bg-zinc-800 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-900"
@@ -107,12 +130,14 @@ export default async function CampagnesPage({
             profil={params.profil}
             participation={params.participation}
             statut={params.statut}
+            ville={params.ville}
           />
         </Suspense>
         <EnvoyerCampagneForm
           profil={params.profil}
           participation={params.participation}
           statut={params.statut}
+          ville={params.ville}
         />
       </div>
 

@@ -22,6 +22,7 @@ interface RechercheParams {
   profil?: string;
   participation?: string;
   statut?: string;
+  ville?: string;
 }
 
 export default async function ParticipantsPage({
@@ -48,6 +49,7 @@ export default async function ParticipantsPage({
     requete = requete.eq("participation", params.participation as Participation);
   if (params.statut)
     requete = requete.eq("statut", params.statut as StatutParticipant);
+  if (params.ville) requete = requete.eq("commune_normalisee", params.ville);
 
   const debut = (page - 1) * PAR_PAGE;
   const { data: participants, count } = await requete.range(
@@ -62,6 +64,17 @@ export default async function ParticipantsPage({
 
   const profils = Array.from(
     new Set((profilsDistincts ?? []).map((p) => p.profil).filter(Boolean))
+  ).sort() as string[];
+
+  const { data: villesDistinctes } = await supabase
+    .from("participants")
+    .select("commune_normalisee")
+    .not("commune_normalisee", "is", null);
+
+  const villes = Array.from(
+    new Set(
+      (villesDistinctes ?? []).map((p) => p.commune_normalisee).filter(Boolean)
+    )
   ).sort() as string[];
 
   const totalPages = Math.max(1, Math.ceil((count ?? 0) / PAR_PAGE));
@@ -80,6 +93,7 @@ export default async function ParticipantsPage({
   if (params.participation)
     paramsSegmentCampagne.set("participation", params.participation);
   if (params.statut) paramsSegmentCampagne.set("statut", params.statut);
+  if (params.ville) paramsSegmentCampagne.set("ville", params.ville);
   const lienCampagne = `/admin/campagnes?${paramsSegmentCampagne.toString()}`;
 
   return (
@@ -148,6 +162,18 @@ export default async function ParticipantsPage({
             </option>
           ))}
         </select>
+        <select
+          name="ville"
+          defaultValue={params.ville ?? ""}
+          className="rounded-md border border-zinc-300 px-3 py-2 text-sm"
+        >
+          <option value="">Toute ville</option>
+          {villes.map((v) => (
+            <option key={v} value={v}>
+              {v}
+            </option>
+          ))}
+        </select>
         <button
           type="submit"
           className="rounded-md bg-zinc-800 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-900"
@@ -162,6 +188,8 @@ export default async function ParticipantsPage({
             <tr>
               <th className="px-4 py-2 text-left font-medium text-zinc-500">Nom</th>
               <th className="px-4 py-2 text-left font-medium text-zinc-500">Email</th>
+              <th className="px-4 py-2 text-left font-medium text-zinc-500">Téléphone</th>
+              <th className="px-4 py-2 text-left font-medium text-zinc-500">Ville</th>
               <th className="px-4 py-2 text-left font-medium text-zinc-500">Profil</th>
               <th className="px-4 py-2 text-left font-medium text-zinc-500">Participation</th>
               <th className="px-4 py-2 text-left font-medium text-zinc-500">Statut</th>
@@ -173,6 +201,8 @@ export default async function ParticipantsPage({
               <tr key={p.id}>
                 <td className="px-4 py-2">{p.nom_complet}</td>
                 <td className="px-4 py-2 text-zinc-500">{p.email}</td>
+                <td className="px-4 py-2 text-zinc-500">{p.telephone ?? "—"}</td>
+                <td className="px-4 py-2">{p.commune_normalisee ?? "—"}</td>
                 <td className="px-4 py-2">{p.profil ?? "—"}</td>
                 <td className="px-4 py-2">
                   {p.participation

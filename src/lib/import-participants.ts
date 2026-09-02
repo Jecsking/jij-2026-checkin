@@ -2,6 +2,7 @@ import "server-only";
 import ExcelJS from "exceljs";
 import Papa from "papaparse";
 import type { Participant } from "@/types/database";
+import { canonicaliserCommune } from "@/lib/communes";
 
 export interface LigneImportee {
   email: string;
@@ -10,6 +11,7 @@ export interface LigneImportee {
   sexe: string | null;
   age_saisi: string | null;
   commune: string | null;
+  commune_normalisee: string | null;
   profil: string | null;
   participation: Participant["participation"];
   consentement_infos: boolean | null;
@@ -145,6 +147,7 @@ function construireLigne(
     sexe: parChamp["sexe"] || null,
     age_saisi: parChamp["age_saisi"] || null,
     commune: parChamp["commune"] || null,
+    commune_normalisee: canonicaliserCommune(parChamp["commune"]),
     profil: parChamp["profil"] || null,
     participation: mapperParticipation(parChamp["participation"]),
     consentement_infos: mapperOuiNon(parChamp["consentement_infos"]),

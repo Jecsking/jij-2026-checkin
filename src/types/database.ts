@@ -12,6 +12,7 @@ export type Participant = {
   sexe: string | null;
   age_saisi: string | null;
   commune: string | null;
+  commune_normalisee: string | null;
   profil: string | null;
   participation: Participation | null;
   consentement_infos: boolean | null;

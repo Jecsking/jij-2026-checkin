@@ -9,10 +9,12 @@ export function EnvoyerCampagneForm({
   profil,
   participation,
   statut,
+  ville,
 }: {
   profil?: string;
   participation?: string;
   statut?: string;
+  ville?: string;
 }) {
   const [etat, dispatch, enCours] = useActionState(
     envoyerCampagneAction,
@@ -24,6 +26,7 @@ export function EnvoyerCampagneForm({
       <input type="hidden" name="profil" value={profil ?? ""} />
       <input type="hidden" name="participation" value={participation ?? ""} />
       <input type="hidden" name="statut" value={statut ?? ""} />
+      <input type="hidden" name="ville" value={ville ?? ""} />
 
       <button
         type="submit"
