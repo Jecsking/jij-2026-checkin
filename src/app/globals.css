@@ -169,3 +169,10 @@ body {
   background: var(--primary-soft);
   color: var(--primary-dark);
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--fg);
+  transition: background-color 9999s ease-in-out 0s;
+}

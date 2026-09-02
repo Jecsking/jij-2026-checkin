@@ -44,7 +44,7 @@ export function ChangerMotDePasse() {
         onChange={(e) => setMotDePasse(e.target.value)}
         minLength={8}
         required
-        className="w-full rounded-md border border-border px-3 py-2 text-sm"
+        className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg focus:border-primary focus:outline-none"
       />
       <button
         type="submit"

@@ -22,7 +22,7 @@ export function CreerMembreForm() {
           name="nom_complet"
           required
           placeholder="Prénom Nom"
-          className="mt-1 rounded-md border border-border px-3 py-2 text-sm"
+          className="mt-1 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         />
       </div>
       <div>
@@ -31,7 +31,7 @@ export function CreerMembreForm() {
           name="email"
           type="email"
           required
-          className="mt-1 rounded-md border border-border px-3 py-2 text-sm"
+          className="mt-1 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         />
       </div>
       <div>
@@ -40,7 +40,7 @@ export function CreerMembreForm() {
           name="role"
           required
           defaultValue="staff"
-          className="mt-1 rounded-md border border-border bg-surface px-3 py-2 text-sm"
+          className="mt-1 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
         >
           <option value="admin">Admin (accès complet)</option>
           <option value="staff">Hôtesse (contrôle d&apos;accès)</option>
@@ -56,7 +56,7 @@ export function CreerMembreForm() {
           type="text"
           minLength={8}
           placeholder="généré si vide"
-          className="mt-1 rounded-md border border-border px-3 py-2 text-sm"
+          className="mt-1 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         />
       </div>
       <button

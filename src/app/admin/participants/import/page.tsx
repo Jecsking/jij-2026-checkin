@@ -41,7 +41,7 @@ export default function ImportParticipantsPage() {
           name="fichier"
           accept=".xlsx,.csv"
           required
-          className="block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm"
+          className="block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
         />
         <button
           type="submit"

@@ -124,12 +124,12 @@ export default async function ParticipantsPage({
           name="recherche"
           defaultValue={params.recherche}
           placeholder="Nom ou email..."
-          className="rounded-md border border-border px-3 py-2 text-sm"
+          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         />
         <select
           name="profil"
           defaultValue={params.profil ?? ""}
-          className="rounded-md border border-border px-3 py-2 text-sm"
+          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         >
           <option value="">Tous les profils</option>
           {profils.map((p) => (
@@ -141,7 +141,7 @@ export default async function ParticipantsPage({
         <select
           name="participation"
           defaultValue={params.participation ?? ""}
-          className="rounded-md border border-border px-3 py-2 text-sm"
+          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         >
           <option value="">Toute participation</option>
           {Object.entries(LIBELLES_PARTICIPATION).map(([v, l]) => (
@@ -153,7 +153,7 @@ export default async function ParticipantsPage({
         <select
           name="statut"
           defaultValue={params.statut ?? ""}
-          className="rounded-md border border-border px-3 py-2 text-sm"
+          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         >
           <option value="">Tout statut</option>
           {Object.entries(LIBELLES_STATUT).map(([v, l]) => (
@@ -165,7 +165,7 @@ export default async function ParticipantsPage({
         <select
           name="ville"
           defaultValue={params.ville ?? ""}
-          className="rounded-md border border-border px-3 py-2 text-sm"
+          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         >
           <option value="">Toute ville</option>
           {villes.map((v) => (

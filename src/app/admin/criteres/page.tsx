@@ -32,7 +32,7 @@ export default async function CriteresPage() {
             name="libelle"
             required
             placeholder="Ex. Innovation"
-            className="mt-1 rounded-md border border-border px-3 py-2 text-sm"
+            className="mt-1 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
           />
         </div>
         <div>
@@ -40,7 +40,7 @@ export default async function CriteresPage() {
           <input
             name="description"
             placeholder="Optionnel"
-            className="mt-1 rounded-md border border-border px-3 py-2 text-sm"
+            className="mt-1 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
           />
         </div>
         <div>
@@ -51,7 +51,7 @@ export default async function CriteresPage() {
             step="0.1"
             min="0.1"
             defaultValue="1"
-            className="mt-1 w-24 rounded-md border border-border px-3 py-2 text-sm"
+            className="mt-1 w-24 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
           />
         </div>
         <button
@@ -90,7 +90,7 @@ export default async function CriteresPage() {
                       step="0.1"
                       min="0.1"
                       defaultValue={c.poids}
-                      className="w-20 rounded-md border border-border px-2 py-1 text-sm"
+                      className="w-20 rounded-md border border-border bg-surface px-2 py-1 text-sm text-fg"
                     />
                     <label className="flex items-center gap-1 text-xs text-fg-muted">
                       <input

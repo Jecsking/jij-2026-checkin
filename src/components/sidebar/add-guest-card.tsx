@@ -87,7 +87,7 @@ function AjouterInviteModal({ onFermer }: { onFermer: () => void }) {
               name="nom_complet"
               required
               placeholder="Prénom Nom"
-              className="mt-1 w-full rounded-md border border-border px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted focus:border-primary focus:outline-none"
             />
           </div>
           <div>
@@ -96,7 +96,7 @@ function AjouterInviteModal({ onFermer }: { onFermer: () => void }) {
               name="email"
               type="email"
               required
-              className="mt-1 w-full rounded-md border border-border px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted focus:border-primary focus:outline-none"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -104,7 +104,7 @@ function AjouterInviteModal({ onFermer }: { onFermer: () => void }) {
               <label className="block text-xs text-fg-muted">Téléphone</label>
               <input
                 name="telephone"
-                className="mt-1 w-full rounded-md border border-border px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted focus:border-primary focus:outline-none"
               />
             </div>
             <div>
@@ -112,7 +112,7 @@ function AjouterInviteModal({ onFermer }: { onFermer: () => void }) {
               <select
                 name="sexe"
                 defaultValue=""
-                className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg focus:border-primary focus:outline-none"
               >
                 <option value="">—</option>
                 <option value="Masculin">Masculin</option>
@@ -125,7 +125,7 @@ function AjouterInviteModal({ onFermer }: { onFermer: () => void }) {
               <label className="block text-xs text-fg-muted">Commune</label>
               <input
                 name="commune"
-                className="mt-1 w-full rounded-md border border-border px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted focus:border-primary focus:outline-none"
               />
             </div>
             <div>
@@ -133,7 +133,7 @@ function AjouterInviteModal({ onFermer }: { onFermer: () => void }) {
               <input
                 name="profil"
                 placeholder="Invité"
-                className="mt-1 w-full rounded-md border border-border px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted focus:border-primary focus:outline-none"
               />
             </div>
           </div>
@@ -142,7 +142,7 @@ function AjouterInviteModal({ onFermer }: { onFermer: () => void }) {
             <select
               name="participation"
               defaultValue="deux_jours"
-              className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg focus:border-primary focus:outline-none"
             >
               <option value="jour1">Jour 1 uniquement</option>
               <option value="jour2">Jour 2 uniquement</option>

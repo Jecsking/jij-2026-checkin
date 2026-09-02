@@ -32,12 +32,12 @@ export default async function EquipesPage() {
           name="nom"
           required
           placeholder="Nom de l'équipe"
-          className="rounded-md border border-border px-3 py-2 text-sm"
+          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         />
         <input
           name="description"
           placeholder="Description (optionnel)"
-          className="flex-1 min-w-[200px] rounded-md border border-border px-3 py-2 text-sm"
+          className="flex-1 min-w-[200px] rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         />
         <button
           type="submit"
@@ -110,23 +110,23 @@ export default async function EquipesPage() {
                 name="nom_complet"
                 required
                 placeholder="Nom du membre"
-                className="rounded-md border border-border px-2 py-1.5 text-sm"
+                className="rounded-md border border-border bg-surface px-2 py-1.5 text-sm text-fg placeholder:text-fg-muted"
               />
               <input
                 name="role"
                 placeholder="Rôle (optionnel)"
-                className="w-32 rounded-md border border-border px-2 py-1.5 text-sm"
+                className="w-32 rounded-md border border-border bg-surface px-2 py-1.5 text-sm text-fg placeholder:text-fg-muted"
               />
               <input
                 name="email"
                 type="email"
                 placeholder="Email (optionnel)"
-                className="rounded-md border border-border px-2 py-1.5 text-sm"
+                className="rounded-md border border-border bg-surface px-2 py-1.5 text-sm text-fg placeholder:text-fg-muted"
               />
               <input
                 name="telephone"
                 placeholder="Téléphone (optionnel)"
-                className="rounded-md border border-border px-2 py-1.5 text-sm"
+                className="rounded-md border border-border bg-surface px-2 py-1.5 text-sm text-fg placeholder:text-fg-muted"
               />
               <button
                 type="submit"

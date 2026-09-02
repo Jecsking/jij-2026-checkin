@@ -71,7 +71,7 @@ export default async function CampagnesPage({
         <select
           name="profil"
           defaultValue={params.profil ?? ""}
-          className="rounded-md border border-border px-3 py-2 text-sm"
+          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
         >
           <option value="">Tous les profils</option>
           {profils.map((p) => (
@@ -83,7 +83,7 @@ export default async function CampagnesPage({
         <select
           name="participation"
           defaultValue={params.participation ?? ""}
-          className="rounded-md border border-border px-3 py-2 text-sm"
+          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
         >
           <option value="">Toute participation</option>
           {Object.entries(LIBELLES_PARTICIPATION).map(([v, l]) => (
@@ -95,7 +95,7 @@ export default async function CampagnesPage({
         <select
           name="statut"
           defaultValue={params.statut ?? "inscrit"}
-          className="rounded-md border border-border px-3 py-2 text-sm"
+          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
         >
           <option value="">Tout statut</option>
           {Object.entries(LIBELLES_STATUT).map(([v, l]) => (
@@ -107,7 +107,7 @@ export default async function CampagnesPage({
         <select
           name="ville"
           defaultValue={params.ville ?? ""}
-          className="rounded-md border border-border px-3 py-2 text-sm"
+          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
         >
           <option value="">Toute ville</option>
           {villes.map((v) => (

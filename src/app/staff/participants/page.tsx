@@ -61,7 +61,7 @@ export default async function ParticipantsHotessePage({
           name="recherche"
           defaultValue={params.recherche}
           placeholder="Rechercher un nom ou un email..."
-          className="w-full max-w-sm rounded-md border border-border px-3 py-2 text-sm"
+          className="w-full max-w-sm rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         />
       </form>
 
