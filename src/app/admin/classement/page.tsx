@@ -90,19 +90,23 @@ export default async function ClassementPage() {
                 <td className="px-4 py-2 font-semibold">{index + 1}</td>
                 <td className="px-4 py-2">{c.nom}</td>
                 <td className="px-4 py-2 text-fg-muted">
-                  {c.score_passage1 !== null
+                  {typeof c.score_passage1 === "number"
                     ? c.score_passage1.toFixed(1)
                     : "—"}
                 </td>
                 <td className="px-4 py-2 text-fg-muted">
-                  {c.score_passage2 !== null ? c.score_passage2.toFixed(1) : "—"}
+                  {typeof c.score_passage2 === "number"
+                    ? c.score_passage2.toFixed(1)
+                    : "—"}
                 </td>
                 <td className="px-4 py-2 font-medium text-primary">
-                  {c.score_final !== null ? c.score_final.toFixed(1) : "—"}
+                  {typeof c.score_final === "number"
+                    ? c.score_final.toFixed(1)
+                    : "—"}
                 </td>
                 <td className="px-4 py-2 text-fg-muted">
-                  P1 : {c.nb_jures_passage1}/{nbJures ?? 0} · P2 :{" "}
-                  {c.nb_jures_passage2}/{nbJures ?? 0}
+                  P1 : {c.nb_jures_passage1 ?? 0}/{nbJures ?? 0} · P2 :{" "}
+                  {c.nb_jures_passage2 ?? 0}/{nbJures ?? 0}
                 </td>
               </tr>
             ))}
