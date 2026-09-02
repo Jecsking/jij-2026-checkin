@@ -19,14 +19,14 @@ export function AddGuestCard() {
           onClick={() => setOuvert(true)}
           title="Ajouter un invité"
           aria-label="Ajouter un invité"
-          className={`w-full items-center justify-center rounded-xl bg-gradient-to-br from-primary to-brand-navy-deep py-2.5 text-white shadow-sm transition-opacity hover:opacity-90 ${
+          className={`w-full items-center justify-center rounded-xl bg-gradient-to-br from-primary to-sidebar py-2.5 text-white shadow-sm transition-opacity hover:opacity-90 ${
             reduite ? "hidden md:flex" : "hidden"
           }`}
         >
           <IconeAjouterInvite className="h-[18px] w-[18px]" />
         </button>
         <div
-          className={`rounded-xl bg-gradient-to-br from-primary to-brand-navy-deep p-4 shadow-sm ${
+          className={`rounded-xl bg-gradient-to-br from-primary to-sidebar p-4 shadow-sm ${
             reduite ? "md:hidden" : ""
           }`}
         >

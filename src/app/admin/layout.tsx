@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { exigerRole } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
+import { avatarAnimal } from "@/lib/avatar-animal";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { NavLink } from "@/components/nav-link";
 import { PageTitle } from "@/components/page-title";
@@ -94,15 +95,6 @@ const SECTIONS = [
     ],
   },
 ];
-
-function initiales(nom: string): string {
-  return nom
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((mot) => mot[0]?.toUpperCase())
-    .join("");
-}
 
 export default async function AdminLayout({
   children,
@@ -222,17 +214,14 @@ export default async function AdminLayout({
               </Link>
               <NotificationBell nombre={echecsCount ?? 0} echecs={echecs} />
               <ThemeToggle />
-              <Link
-                href="/compte"
-                className="ml-2 flex items-center gap-2 border-l border-border pl-3"
-              >
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-display text-xs font-bold text-primary-fg">
-                  {initiales(nom)}
+              <div className="ml-2 flex items-center gap-2 border-l border-border pl-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-base">
+                  {avatarAnimal(connecte.user.id)}
                 </div>
                 <span className="hidden text-sm font-medium text-fg sm:inline">
                   {nom}
                 </span>
-              </Link>
+              </div>
             </div>
           </header>
           <main className="flex-1 p-4 md:p-8">{children}</main>
