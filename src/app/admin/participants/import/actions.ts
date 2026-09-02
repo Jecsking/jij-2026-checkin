@@ -51,14 +51,17 @@ export async function importerParticipantsAction(
 
   const { data: existants, error: erreurLecture } = await supabase
     .from("participants")
-    .select("id, email");
+    .select("id, email, commune_normalisee");
 
   if (erreurLecture) {
     return { erreur: `Lecture des participants existants impossible : ${erreurLecture.message}` };
   }
 
   const parEmail = new Map(
-    (existants ?? []).map((p) => [p.email.toLowerCase().trim(), p.id])
+    (existants ?? []).map((p) => [
+      p.email.toLowerCase().trim(),
+      { id: p.id, communeNormalisee: p.commune_normalisee },
+    ])
   );
 
   let crees = 0;
@@ -70,7 +73,7 @@ export async function importerParticipantsAction(
   for (const lot of lots) {
     const resultats = await Promise.all(
       lot.map(async (ligne) => {
-        const idExistant = parEmail.get(ligne.email);
+        const existant = parEmail.get(ligne.email);
         const donnees = {
           nom_complet: ligne.nom_complet,
           telephone: ligne.telephone,
@@ -87,11 +90,17 @@ export async function importerParticipantsAction(
           reponses_brutes: ligne.reponses_brutes,
         };
 
-        if (idExistant) {
+        if (existant) {
+          // Une ville "étiquette" (ex. FSS) posée manuellement par l'admin
+          // ne doit jamais être écrasée par un réimport ultérieur.
+          const donneesMaj =
+            existant.communeNormalisee === "FSS"
+              ? { ...donnees, commune_normalisee: "FSS" }
+              : donnees;
           const { error } = await supabase
             .from("participants")
-            .update(donnees)
-            .eq("id", idExistant);
+            .update(donneesMaj)
+            .eq("id", existant.id);
           return { type: "maj" as const, email: ligne.email, error };
         }
 

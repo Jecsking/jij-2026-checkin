@@ -80,7 +80,18 @@ export default async function CampagnesPage({
       parParticipant.set(h.participant_id, h);
     }
   }
-  const historique = Array.from(parParticipant.values()).slice(0, 50);
+  // Les confirmés (code QR) remontent en haut, au fur et à mesure qu'ils
+  // confirment ; les non-confirmés restent en dessous.
+  const historique = Array.from(parParticipant.values())
+    .sort((a, b) => {
+      const aConfirme = a.type === "qr_code" ? 1 : 0;
+      const bConfirme = b.type === "qr_code" ? 1 : 0;
+      if (aConfirme !== bConfirme) return bConfirme - aConfirme;
+      return (
+        new Date(b.date_envoi).getTime() - new Date(a.date_envoi).getTime()
+      );
+    })
+    .slice(0, 50);
 
   const { data: tousParticipants } = await supabase
     .from("participants")
