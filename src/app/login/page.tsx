@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const DESTINATION_PAR_ROLE: Record<string, string> = {
   admin: "/admin",
@@ -52,31 +54,43 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex flex-1 items-center justify-center bg-zinc-50 px-6">
+    <div className="relative flex flex-1 items-center justify-center bg-bg px-6">
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
+      </div>
       <form
         onSubmit={onSubmit}
-        className="w-full max-w-sm space-y-4 rounded-lg border border-zinc-200 bg-white p-8 shadow-sm"
+        className="w-full max-w-sm space-y-4 rounded-2xl border border-border bg-surface p-8 shadow-sm"
       >
-        <h1 className="text-xl font-semibold text-teal-800">Connexion</h1>
-        <p className="text-sm text-zinc-500">
-          Espace admin, staff d&apos;entrée ou jury — JIJ 2026.
-        </p>
+        <div className="flex flex-col items-center text-center">
+          <Image
+            src="/logo/icone-jij.png"
+            alt="JIJ 2026"
+            width={56}
+            height={56}
+            className="h-14 w-14"
+          />
+          <h1 className="font-display mt-3 text-xl font-bold text-fg">
+            Connexion
+          </h1>
+          <p className="mt-1 text-sm text-fg-muted">
+            Espace admin, staff d&apos;entrée ou jury — JIJ 2026.
+          </p>
+        </div>
 
         <div>
-          <label className="block text-sm font-medium text-zinc-700">
-            Email
-          </label>
+          <label className="block text-sm font-medium text-fg">Email</label>
           <input
             type="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-md border border-zinc-300 px-3 py-2 text-sm focus:border-teal-600 focus:outline-none"
+            className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg focus:border-primary focus:outline-none"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-zinc-700">
+          <label className="block text-sm font-medium text-fg">
             Mot de passe
           </label>
           <input
@@ -84,16 +98,16 @@ export default function LoginPage() {
             required
             value={motDePasse}
             onChange={(e) => setMotDePasse(e.target.value)}
-            className="mt-1 w-full rounded-md border border-zinc-300 px-3 py-2 text-sm focus:border-teal-600 focus:outline-none"
+            className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg focus:border-primary focus:outline-none"
           />
         </div>
 
-        {erreur && <p className="text-sm text-red-600">{erreur}</p>}
+        {erreur && <p className="text-sm text-danger">{erreur}</p>}
 
         <button
           type="submit"
           disabled={chargement}
-          className="w-full rounded-md bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800 disabled:opacity-60"
+          className="w-full rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-fg transition-colors hover:bg-primary-hover disabled:opacity-60"
         >
           {chargement ? "Connexion..." : "Se connecter"}
         </button>

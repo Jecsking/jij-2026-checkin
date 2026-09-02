@@ -25,7 +25,7 @@ const LIBELLES_PARTICIPATION: Record<string, string> = {
 };
 
 const STYLE_PAR_STATUT: Record<StatutScan, string> = {
-  ok: "bg-teal-600",
+  ok: "bg-accent-green",
   jour_non_prevu: "bg-amber-500",
   deja_scanne: "bg-orange-600",
   non_confirme: "bg-orange-600",
@@ -114,8 +114,8 @@ export default function ScanPage() {
             onClick={() => setJour(j)}
             className={`rounded-md px-4 py-2 text-sm font-medium ${
               jour === j
-                ? "bg-teal-700 text-white"
-                : "bg-white text-zinc-700 border border-zinc-300"
+                ? "bg-primary text-primary-fg"
+                : "bg-surface text-fg border border-border"
             }`}
           >
             {j === "jour1" ? "Jour 1" : "Jour 2"}
@@ -126,7 +126,7 @@ export default function ScanPage() {
       <div
         id="lecteur-qr"
         ref={conteneurRef}
-        className="w-full max-w-sm overflow-hidden rounded-lg border border-zinc-300"
+        className="w-full max-w-sm overflow-hidden rounded-lg border border-border"
       />
 
       {resultat && (

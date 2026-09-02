@@ -1,26 +1,103 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Couleurs de marque JIJ 2026 (extraites du logo officiel) */
+  --brand-navy: #1354a2;
+  --brand-navy-deep: #0d2a52;
+  --brand-blue: #1980c3;
+  --brand-gold: #f9d622;
+  --brand-crimson: #d10f42;
+  --brand-green: #0c8756;
+
+  /* Tokens sémantiques — thème clair */
+  --bg: #f2f5fa;
+  --surface: #ffffff;
+  --surface-hover: #f8fafc;
+  --sidebar: #0d2a52;
+  --sidebar-hover: #163f74;
+  --sidebar-fg: #e7edf6;
+  --sidebar-fg-muted: #9db4d4;
+  --border: #e2e8f0;
+  --fg: #0f172a;
+  --fg-muted: #64748b;
+  --primary: #1354a2;
+  --primary-hover: #0d3f80;
+  --primary-fg: #ffffff;
+  --accent-gold: #f9d622;
+  --accent-crimson: #d10f42;
+  --accent-green: #0c8756;
+  --success: #0c8756;
+  --success-bg: #e5f6ee;
+  --danger: #d10f42;
+  --danger-bg: #fce8ed;
+  --warning-bg: #fdf6d6;
+}
+
+.dark {
+  --bg: #0a0f1c;
+  --surface: #121a2c;
+  --surface-hover: #182338;
+  --sidebar: #070d1a;
+  --sidebar-hover: #101b30;
+  --sidebar-fg: #e7edf6;
+  --sidebar-fg-muted: #7f93b5;
+  --border: #223049;
+  --fg: #e7ecf5;
+  --fg-muted: #93a3bd;
+  --primary: #3b8fdc;
+  --primary-hover: #5aa3e6;
+  --primary-fg: #071120;
+  --accent-gold: #f9d622;
+  --accent-crimson: #f1436b;
+  --accent-green: #22b17f;
+  --success: #22b17f;
+  --success-bg: #0f2c22;
+  --danger: #f1436b;
+  --danger-bg: #35131d;
+  --warning-bg: #2c2712;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-navy-deep: var(--brand-navy-deep);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-crimson: var(--brand-crimson);
+  --color-brand-green: var(--brand-green);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-hover: var(--sidebar-hover);
+  --color-sidebar-fg: var(--sidebar-fg);
+  --color-sidebar-fg-muted: var(--sidebar-fg-muted);
+  --color-border: var(--border);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-fg: var(--primary-fg);
+  --color-accent-gold: var(--accent-gold);
+  --color-accent-crimson: var(--accent-crimson);
+  --color-accent-green: var(--accent-green);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-warning-bg: var(--warning-bg);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-display);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+::selection {
+  background: var(--brand-gold);
+  color: var(--brand-navy-deep);
 }

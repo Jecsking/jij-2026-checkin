@@ -40,39 +40,39 @@ export function StatsCheckin() {
   }, []);
 
   if (!stats) {
-    return <p className="text-sm text-zinc-400">Chargement...</p>;
+    return <p className="text-sm text-fg-muted">Chargement...</p>;
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-zinc-200 bg-white">
-      <table className="min-w-full divide-y divide-zinc-200 text-sm">
-        <thead className="bg-zinc-50">
+    <div className="overflow-x-auto rounded-lg border border-border bg-surface">
+      <table className="min-w-full divide-y divide-border text-sm">
+        <thead className="bg-bg">
           <tr>
-            <th className="px-4 py-2 text-left font-medium text-zinc-500">Profil</th>
-            <th className="px-4 py-2 text-left font-medium text-zinc-500">Présents J1</th>
-            <th className="px-4 py-2 text-left font-medium text-zinc-500">Attendus J1</th>
-            <th className="px-4 py-2 text-left font-medium text-zinc-500">Présents J2</th>
-            <th className="px-4 py-2 text-left font-medium text-zinc-500">Attendus J2</th>
+            <th className="px-4 py-2 text-left font-medium text-fg-muted">Profil</th>
+            <th className="px-4 py-2 text-left font-medium text-fg-muted">Présents J1</th>
+            <th className="px-4 py-2 text-left font-medium text-fg-muted">Attendus J1</th>
+            <th className="px-4 py-2 text-left font-medium text-fg-muted">Présents J2</th>
+            <th className="px-4 py-2 text-left font-medium text-fg-muted">Attendus J2</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-zinc-100">
+        <tbody className="divide-y divide-border">
           {stats.lignes.map((l) => (
             <tr key={l.profil}>
               <td className="px-4 py-2">{l.profil}</td>
-              <td className="px-4 py-2 font-medium text-teal-800">{l.presentsJ1}</td>
-              <td className="px-4 py-2 text-zinc-500">{l.attendusJ1}</td>
-              <td className="px-4 py-2 font-medium text-teal-800">{l.presentsJ2}</td>
-              <td className="px-4 py-2 text-zinc-500">{l.attendusJ2}</td>
+              <td className="px-4 py-2 font-medium text-primary">{l.presentsJ1}</td>
+              <td className="px-4 py-2 text-fg-muted">{l.attendusJ1}</td>
+              <td className="px-4 py-2 font-medium text-primary">{l.presentsJ2}</td>
+              <td className="px-4 py-2 text-fg-muted">{l.attendusJ2}</td>
             </tr>
           ))}
         </tbody>
-        <tfoot className="bg-zinc-50 font-semibold">
+        <tfoot className="bg-bg font-semibold">
           <tr>
             <td className="px-4 py-2">Total</td>
-            <td className="px-4 py-2 text-teal-800">{stats.total.presentsJ1}</td>
-            <td className="px-4 py-2 text-zinc-500">{stats.total.attendusJ1}</td>
-            <td className="px-4 py-2 text-teal-800">{stats.total.presentsJ2}</td>
-            <td className="px-4 py-2 text-zinc-500">{stats.total.attendusJ2}</td>
+            <td className="px-4 py-2 text-primary">{stats.total.presentsJ1}</td>
+            <td className="px-4 py-2 text-fg-muted">{stats.total.attendusJ1}</td>
+            <td className="px-4 py-2 text-primary">{stats.total.presentsJ2}</td>
+            <td className="px-4 py-2 text-fg-muted">{stats.total.attendusJ2}</td>
           </tr>
         </tfoot>
       </table>

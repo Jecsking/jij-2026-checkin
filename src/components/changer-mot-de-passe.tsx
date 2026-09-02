@@ -33,9 +33,9 @@ export function ChangerMotDePasse() {
   return (
     <form
       onSubmit={onSubmit}
-      className="max-w-sm space-y-3 rounded-lg border border-zinc-200 bg-white p-4"
+      className="max-w-sm space-y-3 rounded-lg border border-border bg-surface p-4"
     >
-      <label className="block text-sm font-medium text-zinc-700">
+      <label className="block text-sm font-medium text-fg">
         Nouveau mot de passe
       </label>
       <input
@@ -44,16 +44,16 @@ export function ChangerMotDePasse() {
         onChange={(e) => setMotDePasse(e.target.value)}
         minLength={8}
         required
-        className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm"
+        className="w-full rounded-md border border-border px-3 py-2 text-sm"
       />
       <button
         type="submit"
-        className="rounded-md bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+        className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover"
       >
         Mettre à jour
       </button>
-      {erreur && <p className="text-sm text-red-600">{erreur}</p>}
-      {message && <p className="text-sm text-teal-700">{message}</p>}
+      {erreur && <p className="text-sm text-danger">{erreur}</p>}
+      {message && <p className="text-sm text-primary">{message}</p>}
     </form>
   );
 }

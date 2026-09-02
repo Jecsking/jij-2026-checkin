@@ -53,14 +53,14 @@ export default async function NotationEquipePage({
 
   return (
     <div className="max-w-xl">
-      <Link href="/jury" className="text-sm text-teal-700 hover:underline">
+      <Link href="/jury" className="text-sm text-primary hover:underline">
         ← Retour aux équipes
       </Link>
-      <h1 className="mt-2 text-xl font-semibold text-zinc-900">
+      <h1 className="mt-2 text-xl font-semibold text-fg">
         Noter : {equipe.nom}
       </h1>
       {equipe.description && (
-        <p className="mt-1 text-sm text-zinc-600">{equipe.description}</p>
+        <p className="mt-1 text-sm text-fg-muted">{equipe.description}</p>
       )}
 
       <NotationForm

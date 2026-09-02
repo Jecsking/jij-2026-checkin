@@ -12,11 +12,11 @@ export default function ParametresPage() {
   return (
     <div className="max-w-2xl space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900">Paramètres</h1>
-        <p className="mt-1 text-sm text-zinc-600">
+        <h1 className="text-2xl font-semibold text-fg">Paramètres</h1>
+        <p className="mt-1 text-sm text-fg-muted">
           La clôture du vote et la publication du classement se gèrent depuis
           la page{" "}
-          <a href="/admin/classement" className="text-teal-700 hover:underline">
+          <a href="/admin/classement" className="text-primary hover:underline">
             Classement
           </a>
           .
@@ -24,10 +24,10 @@ export default function ParametresPage() {
       </div>
 
       <div>
-        <h2 className="text-sm font-semibold text-zinc-700">
+        <h2 className="text-sm font-semibold text-fg">
           Variables d&apos;environnement
         </h2>
-        <ul className="mt-2 divide-y divide-zinc-100 rounded-lg border border-zinc-200 bg-white">
+        <ul className="mt-2 divide-y divide-border rounded-lg border border-border bg-surface">
           {VARIABLES_REQUISES.map((nom) => {
             const definie = Boolean(process.env[nom]);
             return (
@@ -35,12 +35,12 @@ export default function ParametresPage() {
                 key={nom}
                 className="flex items-center justify-between px-4 py-2 text-sm"
               >
-                <code className="text-zinc-700">{nom}</code>
+                <code className="text-fg">{nom}</code>
                 <span
                   className={
                     definie
-                      ? "text-teal-700"
-                      : "font-medium text-red-600"
+                      ? "text-primary"
+                      : "font-medium text-danger"
                   }
                 >
                   {definie ? "Configurée" : "Manquante"}
@@ -52,10 +52,10 @@ export default function ParametresPage() {
       </div>
 
       <div>
-        <h2 className="text-sm font-semibold text-zinc-700">
+        <h2 className="text-sm font-semibold text-fg">
           Créer un compte admin ou staff
         </h2>
-        <p className="mt-2 text-sm text-zinc-600">
+        <p className="mt-2 text-sm text-fg-muted">
           Les comptes admin et staff ne se créent pas depuis cette interface.
           Depuis le Dashboard Supabase : Authentication → Users → Add user
           (email + mot de passe), puis dans l&apos;éditeur SQL :

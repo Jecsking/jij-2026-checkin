@@ -26,7 +26,7 @@ export async function SegmentCount({
   const { count } = await requete;
 
   return (
-    <p className="text-sm text-zinc-600">
+    <p className="text-sm text-fg-muted">
       Ce segment cible <span className="font-semibold">{count ?? 0}</span>{" "}
       participant(s).
     </p>

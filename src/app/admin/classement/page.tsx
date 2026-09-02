@@ -21,7 +21,7 @@ export default async function ClassementPage() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="text-2xl font-semibold text-zinc-900">
+      <h1 className="text-2xl font-semibold text-fg">
         Classement du hackathon
       </h1>
 
@@ -33,8 +33,8 @@ export default async function ClassementPage() {
             value={parametres?.votes_clotures ? "on" : "off"}
             className={`rounded-md px-4 py-2 text-sm font-medium ${
               parametres?.votes_clotures
-                ? "bg-amber-100 text-amber-800"
-                : "bg-zinc-800 text-white"
+                ? "bg-warning-bg text-fg"
+                : "bg-primary text-primary-fg"
             }`}
           >
             {parametres?.votes_clotures
@@ -48,7 +48,7 @@ export default async function ClassementPage() {
             name="classement_publie"
             value={parametres?.classement_publie ? "on" : "off"}
             disabled={!parametres?.votes_clotures}
-            className="rounded-md bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800 disabled:opacity-50"
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover disabled:opacity-50"
           >
             {parametres?.classement_publie
               ? "Dépublier le classement"
@@ -57,30 +57,30 @@ export default async function ClassementPage() {
         </form>
       </div>
       {!parametres?.votes_clotures && (
-        <p className="mt-2 text-xs text-zinc-400">
+        <p className="mt-2 text-xs text-fg-muted">
           Clôturez le vote avant de pouvoir publier le classement.
         </p>
       )}
 
-      <div className="mt-6 overflow-x-auto rounded-lg border border-zinc-200 bg-white">
-        <table className="min-w-full divide-y divide-zinc-200 text-sm">
-          <thead className="bg-zinc-50">
+      <div className="mt-6 overflow-x-auto rounded-lg border border-border bg-surface">
+        <table className="min-w-full divide-y divide-border text-sm">
+          <thead className="bg-bg">
             <tr>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">#</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Équipe</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Score</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Jurés ayant noté</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">#</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Équipe</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Score</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Jurés ayant noté</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-100">
+          <tbody className="divide-y divide-border">
             {(classement ?? []).map((c, index) => (
-              <tr key={c.equipe_id} className={index === 0 ? "bg-teal-50" : ""}>
+              <tr key={c.equipe_id} className={index === 0 ? "bg-primary/10" : ""}>
                 <td className="px-4 py-2 font-semibold">{index + 1}</td>
                 <td className="px-4 py-2">{c.nom}</td>
-                <td className="px-4 py-2 font-medium text-teal-800">
+                <td className="px-4 py-2 font-medium text-primary">
                   {c.score_final !== null ? c.score_final.toFixed(2) : "—"}
                 </td>
-                <td className="px-4 py-2 text-zinc-500">
+                <td className="px-4 py-2 text-fg-muted">
                   {c.nb_jures_ayant_note} / {nbJures ?? 0}
                 </td>
               </tr>
@@ -88,7 +88,7 @@ export default async function ClassementPage() {
           </tbody>
         </table>
         {(classement ?? []).length === 0 && (
-          <p className="p-4 text-sm text-zinc-400">Aucune équipe pour le moment.</p>
+          <p className="p-4 text-sm text-fg-muted">Aucune équipe pour le moment.</p>
         )}
       </div>
     </div>

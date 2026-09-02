@@ -31,18 +31,18 @@ export function NotationForm({
       {criteres.map((critere) => (
         <div
           key={critere.id}
-          className="rounded-lg border border-zinc-200 bg-white p-4"
+          className="rounded-lg border border-border bg-surface p-4"
         >
           <div className="flex items-center justify-between">
-            <label className="font-medium text-zinc-900">
+            <label className="font-medium text-fg">
               {critere.libelle}
-              <span className="ml-2 text-xs text-zinc-400">
+              <span className="ml-2 text-xs text-fg-muted">
                 (poids {critere.poids})
               </span>
             </label>
           </div>
           {critere.description && (
-            <p className="mt-1 text-sm text-zinc-500">{critere.description}</p>
+            <p className="mt-1 text-sm text-fg-muted">{critere.description}</p>
           )}
           <input
             type="range"
@@ -52,26 +52,26 @@ export function NotationForm({
             step={0.5}
             disabled={votesClotures}
             defaultValue={notesExistantes[critere.id] ?? 5}
-            className="mt-3 w-full accent-teal-700"
+            className="mt-3 w-full accent-primary"
             onInput={(e) => {
               const output = e.currentTarget.nextElementSibling;
               if (output) output.textContent = e.currentTarget.value;
             }}
           />
-          <output className="mt-1 block text-sm font-semibold text-teal-800">
+          <output className="mt-1 block text-sm font-semibold text-primary">
             {notesExistantes[critere.id] ?? 5}
           </output>
         </div>
       ))}
 
       {criteres.length === 0 && (
-        <p className="text-sm text-zinc-400">
+        <p className="text-sm text-fg-muted">
           Aucun critère de notation actif n&apos;a été configuré.
         </p>
       )}
 
       {votesClotures && (
-        <p className="rounded-md bg-amber-50 p-3 text-sm text-amber-800">
+        <p className="rounded-md bg-warning-bg p-3 text-sm text-fg">
           Le vote est clôturé, les notes ne peuvent plus être modifiées.
         </p>
       )}
@@ -80,15 +80,15 @@ export function NotationForm({
         <button
           type="submit"
           disabled={enCours}
-          className="rounded-md bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800 disabled:opacity-60"
+          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover disabled:opacity-60"
         >
           {enCours ? "Enregistrement..." : "Enregistrer mes notes"}
         </button>
       )}
 
-      {etat.erreur && <p className="text-sm text-red-600">{etat.erreur}</p>}
+      {etat.erreur && <p className="text-sm text-danger">{etat.erreur}</p>}
       {etat.succes && (
-        <p className="text-sm text-teal-700">Notes enregistrées.</p>
+        <p className="text-sm text-primary">Notes enregistrées.</p>
       )}
     </form>
   );

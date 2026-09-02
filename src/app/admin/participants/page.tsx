@@ -99,19 +99,19 @@ export default async function ParticipantsPage({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-zinc-900">
+        <h1 className="text-2xl font-semibold text-fg">
           Participants ({count ?? 0})
         </h1>
         <div className="flex gap-2">
           <Link
             href={lienCampagne}
-            className="rounded-md border border-teal-700 px-4 py-2 text-sm font-medium text-teal-700 hover:bg-teal-50"
+            className="rounded-md border border-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10"
           >
             Envoyer une campagne à ce segment
           </Link>
           <Link
             href="/admin/participants/import"
-            className="rounded-md bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover"
           >
             Importer
           </Link>
@@ -124,12 +124,12 @@ export default async function ParticipantsPage({
           name="recherche"
           defaultValue={params.recherche}
           placeholder="Nom ou email..."
-          className="rounded-md border border-zinc-300 px-3 py-2 text-sm"
+          className="rounded-md border border-border px-3 py-2 text-sm"
         />
         <select
           name="profil"
           defaultValue={params.profil ?? ""}
-          className="rounded-md border border-zinc-300 px-3 py-2 text-sm"
+          className="rounded-md border border-border px-3 py-2 text-sm"
         >
           <option value="">Tous les profils</option>
           {profils.map((p) => (
@@ -141,7 +141,7 @@ export default async function ParticipantsPage({
         <select
           name="participation"
           defaultValue={params.participation ?? ""}
-          className="rounded-md border border-zinc-300 px-3 py-2 text-sm"
+          className="rounded-md border border-border px-3 py-2 text-sm"
         >
           <option value="">Toute participation</option>
           {Object.entries(LIBELLES_PARTICIPATION).map(([v, l]) => (
@@ -153,7 +153,7 @@ export default async function ParticipantsPage({
         <select
           name="statut"
           defaultValue={params.statut ?? ""}
-          className="rounded-md border border-zinc-300 px-3 py-2 text-sm"
+          className="rounded-md border border-border px-3 py-2 text-sm"
         >
           <option value="">Tout statut</option>
           {Object.entries(LIBELLES_STATUT).map(([v, l]) => (
@@ -165,7 +165,7 @@ export default async function ParticipantsPage({
         <select
           name="ville"
           defaultValue={params.ville ?? ""}
-          className="rounded-md border border-zinc-300 px-3 py-2 text-sm"
+          className="rounded-md border border-border px-3 py-2 text-sm"
         >
           <option value="">Toute ville</option>
           {villes.map((v) => (
@@ -176,32 +176,32 @@ export default async function ParticipantsPage({
         </select>
         <button
           type="submit"
-          className="rounded-md bg-zinc-800 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-900"
+          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover"
         >
           Filtrer
         </button>
       </form>
 
-      <div className="mt-6 overflow-x-auto rounded-lg border border-zinc-200 bg-white">
-        <table className="min-w-full divide-y divide-zinc-200 text-sm">
-          <thead className="bg-zinc-50">
+      <div className="mt-6 overflow-x-auto rounded-lg border border-border bg-surface">
+        <table className="min-w-full divide-y divide-border text-sm">
+          <thead className="bg-bg">
             <tr>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Nom</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Email</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Téléphone</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Ville</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Profil</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Participation</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Statut</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Présence</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Nom</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Email</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Téléphone</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Ville</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Profil</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Participation</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Statut</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Présence</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-100">
+          <tbody className="divide-y divide-border">
             {(participants as Participant[] | null)?.map((p) => (
               <tr key={p.id}>
                 <td className="px-4 py-2">{p.nom_complet}</td>
-                <td className="px-4 py-2 text-zinc-500">{p.email}</td>
-                <td className="px-4 py-2 text-zinc-500">{p.telephone ?? "—"}</td>
+                <td className="px-4 py-2 text-fg-muted">{p.email}</td>
+                <td className="px-4 py-2 text-fg-muted">{p.telephone ?? "—"}</td>
                 <td className="px-4 py-2">{p.commune_normalisee ?? "—"}</td>
                 <td className="px-4 py-2">{p.profil ?? "—"}</td>
                 <td className="px-4 py-2">
@@ -210,11 +210,11 @@ export default async function ParticipantsPage({
                     : "—"}
                 </td>
                 <td className="px-4 py-2">
-                  <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs">
+                  <span className="rounded-full bg-surface-hover px-2 py-0.5 text-xs text-fg-muted">
                     {LIBELLES_STATUT[p.statut]}
                   </span>
                 </td>
-                <td className="px-4 py-2 text-xs text-zinc-500">
+                <td className="px-4 py-2 text-xs text-fg-muted">
                   {p.date_checkin_jour1 && "J1 ✓ "}
                   {p.date_checkin_jour2 && "J2 ✓"}
                   {!p.date_checkin_jour1 && !p.date_checkin_jour2 && "—"}
@@ -225,7 +225,7 @@ export default async function ParticipantsPage({
         </table>
       </div>
 
-      <div className="mt-4 flex items-center justify-between text-sm text-zinc-500">
+      <div className="mt-4 flex items-center justify-between text-sm text-fg-muted">
         <span>
           Page {page} / {totalPages}
         </span>
@@ -233,7 +233,7 @@ export default async function ParticipantsPage({
           {page > 1 && (
             <Link
               href={lienAvecParams({ page: String(page - 1) })}
-              className="text-teal-700 hover:underline"
+              className="text-primary hover:underline"
             >
               ← Précédent
             </Link>
@@ -241,7 +241,7 @@ export default async function ParticipantsPage({
           {page < totalPages && (
             <Link
               href={lienAvecParams({ page: String(page + 1) })}
-              className="text-teal-700 hover:underline"
+              className="text-primary hover:underline"
             >
               Suivant →
             </Link>

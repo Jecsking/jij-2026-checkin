@@ -31,7 +31,7 @@ export function EnvoyerCampagneForm({
       <button
         type="submit"
         disabled={enCours}
-        className="rounded-md bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800 disabled:opacity-60"
+        className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover disabled:opacity-60"
         onClick={(e) => {
           if (
             !confirm(
@@ -46,18 +46,18 @@ export function EnvoyerCampagneForm({
       </button>
 
       {etat.erreur && (
-        <p className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+        <p className="rounded-md bg-danger-bg p-3 text-sm text-danger">
           {etat.erreur}
         </p>
       )}
 
       {etat.succes && (
-        <div className="rounded-md bg-teal-50 p-4 text-sm text-teal-900">
+        <div className="rounded-md bg-primary/10 p-4 text-sm text-fg">
           <p>
             {etat.envoyes} email(s) envoyé(s), {etat.echecs} échec(s).
           </p>
           {etat.erreursDetail && etat.erreursDetail.length > 0 && (
-            <ul className="mt-2 list-disc pl-5 text-red-700">
+            <ul className="mt-2 list-disc pl-5 text-danger">
               {etat.erreursDetail.map((e) => (
                 <li key={e}>{e}</li>
               ))}

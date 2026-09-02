@@ -14,71 +14,71 @@ export default async function CriteresPage() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="text-2xl font-semibold text-zinc-900">
+      <h1 className="text-2xl font-semibold text-fg">
         Critères de notation
       </h1>
-      <p className="mt-1 text-sm text-zinc-600">
+      <p className="mt-1 text-sm text-fg-muted">
         Le score d&apos;une équipe est la moyenne, entre jurés, de la somme
         pondérée des critères actifs.
       </p>
 
       <form
         action={creerCritereAction}
-        className="mt-6 flex flex-wrap items-end gap-3 rounded-lg border border-zinc-200 bg-white p-4"
+        className="mt-6 flex flex-wrap items-end gap-3 rounded-lg border border-border bg-surface p-4"
       >
         <div>
-          <label className="block text-xs text-zinc-500">Libellé</label>
+          <label className="block text-xs text-fg-muted">Libellé</label>
           <input
             name="libelle"
             required
             placeholder="Ex. Innovation"
-            className="mt-1 rounded-md border border-zinc-300 px-3 py-2 text-sm"
+            className="mt-1 rounded-md border border-border px-3 py-2 text-sm"
           />
         </div>
         <div>
-          <label className="block text-xs text-zinc-500">Description</label>
+          <label className="block text-xs text-fg-muted">Description</label>
           <input
             name="description"
             placeholder="Optionnel"
-            className="mt-1 rounded-md border border-zinc-300 px-3 py-2 text-sm"
+            className="mt-1 rounded-md border border-border px-3 py-2 text-sm"
           />
         </div>
         <div>
-          <label className="block text-xs text-zinc-500">Poids</label>
+          <label className="block text-xs text-fg-muted">Poids</label>
           <input
             name="poids"
             type="number"
             step="0.1"
             min="0.1"
             defaultValue="1"
-            className="mt-1 w-24 rounded-md border border-zinc-300 px-3 py-2 text-sm"
+            className="mt-1 w-24 rounded-md border border-border px-3 py-2 text-sm"
           />
         </div>
         <button
           type="submit"
-          className="rounded-md bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover"
         >
           Ajouter
         </button>
       </form>
 
-      <div className="mt-6 overflow-x-auto rounded-lg border border-zinc-200 bg-white">
-        <table className="min-w-full divide-y divide-zinc-200 text-sm">
-          <thead className="bg-zinc-50">
+      <div className="mt-6 overflow-x-auto rounded-lg border border-border bg-surface">
+        <table className="min-w-full divide-y divide-border text-sm">
+          <thead className="bg-bg">
             <tr>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Libellé</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Poids</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500">Actif</th>
-              <th className="px-4 py-2 text-left font-medium text-zinc-500"></th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Libellé</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Poids</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Actif</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted"></th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-100">
+          <tbody className="divide-y divide-border">
             {(criteres ?? []).map((c) => (
               <tr key={c.id}>
                 <td className="px-4 py-2">
                   {c.libelle}
                   {c.description && (
-                    <p className="text-xs text-zinc-400">{c.description}</p>
+                    <p className="text-xs text-fg-muted">{c.description}</p>
                   )}
                 </td>
                 <td className="px-4 py-2">
@@ -90,9 +90,9 @@ export default async function CriteresPage() {
                       step="0.1"
                       min="0.1"
                       defaultValue={c.poids}
-                      className="w-20 rounded-md border border-zinc-300 px-2 py-1 text-sm"
+                      className="w-20 rounded-md border border-border px-2 py-1 text-sm"
                     />
-                    <label className="flex items-center gap-1 text-xs text-zinc-500">
+                    <label className="flex items-center gap-1 text-xs text-fg-muted">
                       <input
                         type="checkbox"
                         name="actif"
@@ -102,7 +102,7 @@ export default async function CriteresPage() {
                     </label>
                     <button
                       type="submit"
-                      className="rounded-md bg-zinc-800 px-2 py-1 text-xs font-medium text-white hover:bg-zinc-900"
+                      className="rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-fg hover:bg-primary-hover"
                     >
                       Mettre à jour
                     </button>
@@ -118,8 +118,8 @@ export default async function CriteresPage() {
                       value={c.actif ? "off" : "on"}
                       className={`rounded-full px-2 py-0.5 text-xs ${
                         c.actif
-                          ? "bg-teal-100 text-teal-800"
-                          : "bg-zinc-100 text-zinc-500"
+                          ? "bg-success-bg text-success"
+                          : "bg-surface-hover text-fg-muted"
                       }`}
                     >
                       {c.actif ? "Actif" : "Inactif"}
@@ -131,7 +131,7 @@ export default async function CriteresPage() {
                     <input type="hidden" name="id" value={c.id} />
                     <button
                       type="submit"
-                      className="text-xs text-red-600 hover:underline"
+                      className="text-xs text-danger hover:underline"
                     >
                       Supprimer
                     </button>
@@ -142,7 +142,7 @@ export default async function CriteresPage() {
           </tbody>
         </table>
         {(criteres ?? []).length === 0 && (
-          <p className="p-4 text-sm text-zinc-400">
+          <p className="p-4 text-sm text-fg-muted">
             Aucun critère défini pour le moment.
           </p>
         )}

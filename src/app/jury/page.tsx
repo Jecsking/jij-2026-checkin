@@ -34,7 +34,7 @@ export default async function JuryHomePage() {
 
   if (!jure) {
     return (
-      <p className="text-sm text-red-600">
+      <p className="text-sm text-danger">
         Votre compte n&apos;est associé à aucun profil juré. Contactez
         l&apos;organisation.
       </p>
@@ -43,8 +43,8 @@ export default async function JuryHomePage() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="text-xl font-semibold text-zinc-900">Équipes à noter</h1>
-      <p className="mt-1 text-sm text-zinc-600">
+      <h1 className="text-xl font-semibold text-fg">Équipes à noter</h1>
+      <p className="mt-1 text-sm text-fg-muted">
         {nbCriteres} critère(s) actif(s). Vos notes restent privées jusqu&apos;à
         la clôture du vote.
       </p>
@@ -57,14 +57,14 @@ export default async function JuryHomePage() {
             <Link
               key={equipe.id}
               href={`/jury/${equipe.id}`}
-              className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-4 hover:border-teal-400"
+              className="flex items-center justify-between rounded-lg border border-border bg-surface p-4 hover:border-accent-gold"
             >
-              <span className="font-medium text-zinc-900">{equipe.nom}</span>
+              <span className="font-medium text-fg">{equipe.nom}</span>
               <span
                 className={`rounded-full px-2 py-0.5 text-xs ${
                   complet
-                    ? "bg-teal-100 text-teal-800"
-                    : "bg-amber-100 text-amber-800"
+                    ? "bg-success-bg text-success"
+                    : "bg-warning-bg text-fg"
                 }`}
               >
                 {complet ? "Noté" : `${nbNotes}/${nbCriteres}`}
@@ -73,7 +73,7 @@ export default async function JuryHomePage() {
           );
         })}
         {(equipes ?? []).length === 0 && (
-          <p className="text-sm text-zinc-400">
+          <p className="text-sm text-fg-muted">
             Aucune équipe n&apos;est encore enregistrée.
           </p>
         )}

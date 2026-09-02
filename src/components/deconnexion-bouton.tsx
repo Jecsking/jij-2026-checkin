@@ -2,8 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { IconeDeconnexion } from "@/components/icons";
 
-export function DeconnexionBouton() {
+export function DeconnexionBouton({ className = "" }: { className?: string }) {
   const router = useRouter();
 
   async function seDeconnecter() {
@@ -16,8 +17,9 @@ export function DeconnexionBouton() {
   return (
     <button
       onClick={seDeconnecter}
-      className="text-sm font-medium text-zinc-500 hover:text-red-600"
+      className={`flex items-center gap-3 rounded-lg text-sm font-medium transition-colors hover:text-danger ${className}`}
     >
+      <IconeDeconnexion className="h-[18px] w-[18px] shrink-0" />
       Se déconnecter
     </button>
   );

@@ -8,8 +8,8 @@ export default async function ComptePage() {
 
   return (
     <div className="mx-auto max-w-sm py-12">
-      <h1 className="text-xl font-semibold text-zinc-900">Mon compte</h1>
-      <p className="mt-1 text-sm text-zinc-500">{connecte.user.email}</p>
+      <h1 className="text-xl font-semibold text-fg">Mon compte</h1>
+      <p className="mt-1 text-sm text-fg-muted">{connecte.user.email}</p>
       <div className="mt-6">
         <ChangerMotDePasse />
       </div>
