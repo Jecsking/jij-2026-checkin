@@ -152,15 +152,12 @@ export default async function AdminLayout({
           <div className="border-t border-white/10 p-3">
             <SidebarLabel>
               <div className="px-2 pb-2">
-                <p className="text-[10px] uppercase tracking-wider text-sidebar-fg-muted/70">
-                  Développé par
-                </p>
                 <Image
                   src="/logo/forteresse-wordmark.png"
                   alt="Forteresse"
                   width={160}
                   height={50}
-                  className="mt-1 h-5 w-auto object-contain"
+                  className="h-5 w-auto object-contain"
                 />
               </div>
             </SidebarLabel>
