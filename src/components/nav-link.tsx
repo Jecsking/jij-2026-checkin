@@ -10,11 +10,15 @@ export function NavLink({
   label,
   icone,
   exact = false,
+  chipBg = "bg-white/10",
+  chipIcon = "text-white",
 }: {
   href: string;
   label: string;
   icone: ReactNode;
   exact?: boolean;
+  chipBg?: string;
+  chipIcon?: string;
 }) {
   const pathname = usePathname();
   const { reduite } = useSidebar();
@@ -24,15 +28,22 @@ export function NavLink({
     <Link
       href={href}
       title={reduite ? label : undefined}
-      className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
-        reduite ? "justify-center" : ""
+      className={`relative flex items-center gap-3 rounded-xl py-2 pr-3 text-sm font-medium transition-colors ${
+        reduite ? "justify-center px-0" : "pl-3"
       } ${
         actif
-          ? "bg-primary text-primary-fg"
+          ? "bg-white/[0.06] text-white"
           : "text-sidebar-fg-muted hover:bg-sidebar-hover hover:text-white"
       }`}
     >
-      {icone}
+      {actif && (
+        <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-accent-gold" />
+      )}
+      <span
+        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${chipBg} ${chipIcon}`}
+      >
+        {icone}
+      </span>
       {!reduite && label}
     </Link>
   );

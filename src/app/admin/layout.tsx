@@ -23,7 +23,9 @@ import {
   IconeParametres,
 } from "@/components/icons";
 
-const CLASSE_ICONE = "h-[18px] w-[18px] shrink-0";
+const CLASSE_ICONE = "h-4 w-4 shrink-0";
+const ICONE_SOMBRE = "text-brand-navy-deep";
+const ICONE_CLAIRE = "text-white";
 
 const SECTIONS = [
   {
@@ -34,6 +36,8 @@ const SECTIONS = [
         label: "Tableau de bord",
         icone: <IconeTableauDeBord className={CLASSE_ICONE} />,
         exact: true,
+        chipBg: "bg-primary",
+        chipIcon: ICONE_SOMBRE,
       },
     ],
   },
@@ -44,16 +48,22 @@ const SECTIONS = [
         href: "/admin/participants",
         label: "Participants",
         icone: <IconeParticipants className={CLASSE_ICONE} />,
+        chipBg: "bg-info",
+        chipIcon: ICONE_SOMBRE,
       },
       {
         href: "/admin/campagnes",
         label: "Campagnes email",
         icone: <IconeCampagnes className={CLASSE_ICONE} />,
+        chipBg: "bg-accent-gold",
+        chipIcon: ICONE_SOMBRE,
       },
       {
         href: "/admin/checkin",
         label: "Check-in temps réel",
         icone: <IconeCheckin className={CLASSE_ICONE} />,
+        chipBg: "bg-success",
+        chipIcon: ICONE_SOMBRE,
       },
     ],
   },
@@ -64,17 +74,29 @@ const SECTIONS = [
         href: "/admin/equipes",
         label: "Équipes",
         icone: <IconeEquipes className={CLASSE_ICONE} />,
+        chipBg: "bg-accent-purple",
+        chipIcon: ICONE_CLAIRE,
       },
       {
         href: "/admin/criteres",
         label: "Critères de notation",
         icone: <IconeCriteres className={CLASSE_ICONE} />,
+        chipBg: "bg-warning",
+        chipIcon: ICONE_SOMBRE,
       },
-      { href: "/admin/jury", label: "Jury", icone: <IconeJury className={CLASSE_ICONE} /> },
+      {
+        href: "/admin/jury",
+        label: "Jury",
+        icone: <IconeJury className={CLASSE_ICONE} />,
+        chipBg: "bg-accent-crimson",
+        chipIcon: ICONE_CLAIRE,
+      },
       {
         href: "/admin/classement",
         label: "Classement",
         icone: <IconeClassement className={CLASSE_ICONE} />,
+        chipBg: "bg-brand-blue",
+        chipIcon: ICONE_CLAIRE,
       },
     ],
   },
@@ -85,6 +107,8 @@ const SECTIONS = [
         href: "/admin/parametres",
         label: "Paramètres",
         icone: <IconeParametres className={CLASSE_ICONE} />,
+        chipBg: "bg-white/10",
+        chipIcon: ICONE_CLAIRE,
       },
     ],
   },
@@ -118,13 +142,16 @@ export default async function AdminLayout({
       <div className="flex min-h-full flex-1 bg-bg">
         <SidebarAside>
           <div className="flex items-center gap-2.5 px-5 py-5">
-            <Image
-              src="/logo/icone-jij.png"
-              alt="JIJ 2026"
-              width={32}
-              height={32}
-              className="h-8 w-8 shrink-0"
-            />
+            <div className="relative shrink-0">
+              <Image
+                src="/logo/icone-jij.png"
+                alt="JIJ 2026"
+                width={32}
+                height={32}
+                className="h-8 w-8"
+              />
+              <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-accent-gold ring-2 ring-sidebar" />
+            </div>
             <SidebarLabel>
               <div className="leading-tight">
                 <p className="font-display text-sm font-bold text-white">JIJ 2026</p>
@@ -155,7 +182,7 @@ export default async function AdminLayout({
               href="/compte"
               className="flex items-center gap-3 rounded-xl px-2 py-2 transition-colors hover:bg-sidebar-hover"
             >
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent-gold font-display text-sm font-bold text-brand-navy-deep">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent-gold font-display text-sm font-bold text-brand-navy-deep ring-2 ring-accent-gold/30">
                 {initiales(nom)}
               </div>
               <SidebarLabel>
