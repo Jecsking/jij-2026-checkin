@@ -181,7 +181,12 @@ export async function parserFichierParticipants(
   if (!feuille) return [];
 
   const lignesBrutes = feuille.getSheetValues();
-  const enTetes = (lignesBrutes[1] as unknown[]).map((v) => String(v ?? "").trim());
+  // getSheetValues() renvoie des tableaux creux (index 0 jamais assigné) :
+  // Array.from densifie avant le map, sinon un for..of plus loin itère sur
+  // un trou et casse construireLigne (String(undefined)).
+  const enTetes = Array.from(lignesBrutes[1] as unknown[], (v) =>
+    String(v ?? "").trim()
+  );
 
   const lignes: LigneImportee[] = [];
   for (let i = 2; i < lignesBrutes.length; i++) {
@@ -189,8 +194,10 @@ export async function parserFichierParticipants(
     if (!ligneValeurs) continue;
     const valeurs: Record<string, unknown> = {};
     enTetes.forEach((enTete, index) => {
-      // getSheetValues renvoie un tableau 1-indexé (index 0 vide)
-      valeurs[enTete] = ligneValeurs[index + 1];
+      // getSheetValues renvoie des tableaux 1-indexés (index 0 vide) — enTetes
+      // conserve cette même structure (enTetes[0] === ""), donc l'index
+      // s'aligne directement avec ligneValeurs, sans décalage.
+      valeurs[enTete] = ligneValeurs[index];
     });
     const ligne = construireLigne(enTetes, valeurs);
     if (ligne) lignes.push(ligne);
