@@ -10,6 +10,7 @@ import { DeconnexionBouton } from "@/components/deconnexion-bouton";
 import { SidebarProvider } from "@/components/sidebar/sidebar-context";
 import { SidebarAside } from "@/components/sidebar/sidebar-aside";
 import { SidebarLabel } from "@/components/sidebar/sidebar-label";
+import { SidebarMobileToggle } from "@/components/sidebar/sidebar-mobile-toggle";
 import { AddGuestCard } from "@/components/sidebar/add-guest-card";
 import {
   IconeTableauDeBord,
@@ -194,8 +195,9 @@ export default async function AdminLayout({
         </SidebarAside>
 
         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-surface px-6 py-3">
+          <header className="flex items-center justify-between border-b border-border bg-surface px-4 py-3 md:px-6">
             <div className="flex items-center gap-3">
+              <SidebarMobileToggle />
               <PageTitle />
             </div>
             <div className="flex items-center gap-2">
@@ -233,7 +235,7 @@ export default async function AdminLayout({
               </Link>
             </div>
           </header>
-          <main className="flex-1 p-8">{children}</main>
+          <main className="flex-1 p-4 md:p-8">{children}</main>
         </div>
       </div>
     </SidebarProvider>

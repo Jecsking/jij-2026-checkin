@@ -18,15 +18,16 @@ export function NavLink({
   exact?: boolean;
 }) {
   const pathname = usePathname();
-  const { reduite } = useSidebar();
+  const { reduite, fermerMobile } = useSidebar();
   const actif = estActif(pathname, href, exact);
 
   return (
     <Link
       href={href}
       title={reduite ? label : undefined}
+      onClick={fermerMobile}
       className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
-        reduite ? "justify-center" : ""
+        reduite ? "md:justify-center" : ""
       } ${
         actif
           ? "bg-primary text-primary-fg"
@@ -34,7 +35,7 @@ export function NavLink({
       }`}
     >
       {icone}
-      {!reduite && label}
+      <span className={reduite ? "md:hidden" : ""}>{label}</span>
     </Link>
   );
 }

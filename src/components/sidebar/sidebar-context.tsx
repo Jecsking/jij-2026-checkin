@@ -5,15 +5,22 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 interface SidebarContextValue {
   reduite: boolean;
   basculer: () => void;
+  mobileOuvert: boolean;
+  ouvrirMobile: () => void;
+  fermerMobile: () => void;
 }
 
 const SidebarContext = createContext<SidebarContextValue>({
   reduite: false,
   basculer: () => {},
+  mobileOuvert: false,
+  ouvrirMobile: () => {},
+  fermerMobile: () => {},
 });
 
 export function SidebarProvider({ children }: { children: ReactNode }) {
   const [reduite, setReduite] = useState(false);
+  const [mobileOuvert, setMobileOuvert] = useState(false);
 
   useEffect(() => {
     // Lecture de la préférence après le montage (SSR ne connaît pas
@@ -41,7 +48,15 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <SidebarContext.Provider value={{ reduite, basculer }}>
+    <SidebarContext.Provider
+      value={{
+        reduite,
+        basculer,
+        mobileOuvert,
+        ouvrirMobile: () => setMobileOuvert(true),
+        fermerMobile: () => setMobileOuvert(false),
+      }}
+    >
       {children}
     </SidebarContext.Provider>
   );

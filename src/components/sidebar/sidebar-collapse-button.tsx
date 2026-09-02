@@ -10,7 +10,7 @@ export function SidebarCollapseButton() {
       type="button"
       onClick={basculer}
       aria-label={reduite ? "Déplier le menu" : "Réduire le menu"}
-      className="absolute -right-3 top-6 flex h-6 w-6 items-center justify-center rounded-full border border-border bg-surface text-fg-muted shadow-sm transition-colors hover:text-fg"
+      className="absolute -right-3 top-6 hidden h-6 w-6 items-center justify-center rounded-full border border-border bg-surface text-fg-muted shadow-sm transition-colors hover:text-fg md:flex"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

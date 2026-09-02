@@ -14,34 +14,37 @@ export function AddGuestCard() {
   return (
     <>
       <div className="px-3 pb-3">
-        {reduite ? (
+        <button
+          type="button"
+          onClick={() => setOuvert(true)}
+          title="Ajouter un invité"
+          aria-label="Ajouter un invité"
+          className={`w-full items-center justify-center rounded-xl bg-gradient-to-br from-primary to-brand-navy-deep py-2.5 text-white shadow-sm transition-opacity hover:opacity-90 ${
+            reduite ? "hidden md:flex" : "hidden"
+          }`}
+        >
+          <IconeAjouterInvite className="h-[18px] w-[18px]" />
+        </button>
+        <div
+          className={`rounded-xl bg-gradient-to-br from-primary to-brand-navy-deep p-4 shadow-sm ${
+            reduite ? "md:hidden" : ""
+          }`}
+        >
+          <IconeAjouterInvite className="h-6 w-6 text-white" />
+          <p className="mt-2 text-sm font-semibold text-white">
+            Ajouter un invité
+          </p>
+          <p className="mt-1 text-xs text-white/80">
+            Enregistrez directement un invité depuis le système.
+          </p>
           <button
             type="button"
             onClick={() => setOuvert(true)}
-            title="Ajouter un invité"
-            aria-label="Ajouter un invité"
-            className="flex w-full items-center justify-center rounded-xl bg-gradient-to-br from-primary to-brand-navy-deep py-2.5 text-white shadow-sm transition-opacity hover:opacity-90"
+            className="mt-3 w-full rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-white/25"
           >
-            <IconeAjouterInvite className="h-[18px] w-[18px]" />
+            + Ajouter un invité
           </button>
-        ) : (
-          <div className="rounded-xl bg-gradient-to-br from-primary to-brand-navy-deep p-4 shadow-sm">
-            <IconeAjouterInvite className="h-6 w-6 text-white" />
-            <p className="mt-2 text-sm font-semibold text-white">
-              Ajouter un invité
-            </p>
-            <p className="mt-1 text-xs text-white/80">
-              Enregistrez directement un invité depuis le système.
-            </p>
-            <button
-              type="button"
-              onClick={() => setOuvert(true)}
-              className="mt-3 w-full rounded-lg bg-white/15 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-white/25"
-            >
-              + Ajouter un invité
-            </button>
-          </div>
-        )}
+        </div>
       </div>
 
       {ouvert && <AjouterInviteModal onFermer={() => setOuvert(false)} />}
