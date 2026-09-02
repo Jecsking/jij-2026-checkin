@@ -34,7 +34,7 @@ export default async function ClassementPage() {
             className={`rounded-md px-4 py-2 text-sm font-medium ${
               parametres?.votes_clotures
                 ? "bg-warning-soft text-fg"
-                : "bg-primary text-primary-fg"
+                : "bg-accent-gold text-brand-navy-deep hover:bg-accent-gold/90"
             }`}
           >
             {parametres?.votes_clotures
@@ -48,7 +48,7 @@ export default async function ClassementPage() {
             name="classement_publie"
             value={parametres?.classement_publie ? "on" : "off"}
             disabled={!parametres?.votes_clotures}
-            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover disabled:opacity-50"
+            className="rounded-md bg-accent-crimson px-4 py-2 text-sm font-medium text-white hover:bg-accent-crimson/90 disabled:opacity-50"
           >
             {parametres?.classement_publie
               ? "Dépublier le classement"

@@ -48,12 +48,12 @@ export function ChangerMotDePasse() {
       />
       <button
         type="submit"
-        className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover"
+        className="rounded-md bg-accent-gold px-4 py-2 text-sm font-medium text-brand-navy-deep hover:bg-accent-gold/90"
       >
         Mettre à jour
       </button>
       {erreur && <p className="text-sm text-error-text">{erreur}</p>}
-      {message && <p className="text-sm text-primary">{message}</p>}
+      {message && <p className="text-sm text-success-text">{message}</p>}
     </form>
   );
 }

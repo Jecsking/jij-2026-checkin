@@ -102,7 +102,7 @@ export default async function CriteresPage() {
                     </label>
                     <button
                       type="submit"
-                      className="rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-fg hover:bg-primary-hover"
+                      className="rounded-md bg-accent-gold px-2 py-1 text-xs font-medium text-brand-navy-deep hover:bg-accent-gold/90"
                     >
                       Mettre à jour
                     </button>

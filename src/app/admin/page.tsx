@@ -77,7 +77,7 @@ export default async function AdminDashboardPage() {
       label: "Inscrits (total)",
       valeur: total,
       icone: IconeParticipants,
-      couleur: "primary",
+      couleur: "crimson",
     },
     {
       label: "Email envoyé, sans réponse",
@@ -107,7 +107,7 @@ export default async function AdminDashboardPage() {
       label: "Présents — Jour 2",
       valeur: p2,
       icone: IconeCheckin,
-      couleur: "green",
+      couleur: "crimson",
     },
   ];
 
@@ -150,6 +150,12 @@ export default async function AdminDashboardPage() {
       badge: "bg-accent-green",
       icone: "text-white",
       texte: "text-accent-green",
+    },
+    crimson: {
+      bg: "bg-accent-crimson/10",
+      badge: "bg-accent-crimson",
+      icone: "text-white",
+      texte: "text-accent-crimson",
     },
   };
 
