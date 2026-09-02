@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { SegmentCount } from "./segment-count";
 import { EnvoyerCampagneForm } from "./envoyer-campagne-form";
 import { EnvoyerUnePersonneForm } from "./envoyer-une-personne-form";
+import { VilleMultiSelect } from "@/components/ville-multi-select";
 
 const LIBELLES_PARTICIPATION: Record<string, string> = {
   jour1: "Jour 1 uniquement",
@@ -20,7 +21,7 @@ interface RechercheParams {
   profil?: string;
   participation?: string;
   statut?: string;
-  ville?: string;
+  ville?: string | string[];
 }
 
 export default async function CampagnesPage({
@@ -29,6 +30,11 @@ export default async function CampagnesPage({
   searchParams: Promise<RechercheParams>;
 }) {
   const params = await searchParams;
+  const villeSelection = Array.isArray(params.ville)
+    ? params.ville
+    : params.ville
+      ? [params.ville]
+      : [];
   const supabase = await createClient();
 
   const { data: profilsDistincts } = await supabase
@@ -110,18 +116,7 @@ export default async function CampagnesPage({
             </option>
           ))}
         </select>
-        <select
-          name="ville"
-          defaultValue={params.ville ?? ""}
-          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
-        >
-          <option value="">Toute ville</option>
-          {villes.map((v) => (
-            <option key={v} value={v}>
-              {v}
-            </option>
-          ))}
-        </select>
+        <VilleMultiSelect villes={villes} selection={villeSelection} />
         <button
           type="submit"
           className="rounded-md bg-accent-crimson px-4 py-2 text-sm font-medium text-white hover:bg-accent-crimson/90"
@@ -136,14 +131,14 @@ export default async function CampagnesPage({
             profil={params.profil}
             participation={params.participation}
             statut={params.statut}
-            ville={params.ville}
+            ville={villeSelection}
           />
         </Suspense>
         <EnvoyerCampagneForm
           profil={params.profil}
           participation={params.participation}
           statut={params.statut}
-          ville={params.ville}
+          ville={villeSelection}
         />
       </div>
 

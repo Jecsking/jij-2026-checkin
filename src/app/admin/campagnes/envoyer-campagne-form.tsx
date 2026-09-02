@@ -14,7 +14,7 @@ export function EnvoyerCampagneForm({
   profil?: string;
   participation?: string;
   statut?: string;
-  ville?: string;
+  ville?: string[];
 }) {
   const [etat, dispatch, enCours] = useActionState(
     envoyerCampagneAction,
@@ -26,7 +26,9 @@ export function EnvoyerCampagneForm({
       <input type="hidden" name="profil" value={profil ?? ""} />
       <input type="hidden" name="participation" value={participation ?? ""} />
       <input type="hidden" name="statut" value={statut ?? ""} />
-      <input type="hidden" name="ville" value={ville ?? ""} />
+      {(ville ?? []).map((v) => (
+        <input key={v} type="hidden" name="ville" value={v} />
+      ))}
 
       <button
         type="submit"

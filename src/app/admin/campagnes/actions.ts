@@ -37,7 +37,7 @@ export async function envoyerCampagneAction(
   const profil = (formData.get("profil") as string) || undefined;
   const participation = (formData.get("participation") as string) || undefined;
   const statut = (formData.get("statut") as string) || undefined;
-  const ville = (formData.get("ville") as string) || undefined;
+  const ville = formData.getAll("ville").filter(Boolean) as string[];
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL;
   if (!appUrl) {
@@ -54,7 +54,7 @@ export async function envoyerCampagneAction(
   if (participation)
     requete = requete.eq("participation", participation as Participation);
   if (statut) requete = requete.eq("statut", statut as StatutParticipant);
-  if (ville) requete = requete.eq("commune_normalisee", ville);
+  if (ville.length > 0) requete = requete.in("commune_normalisee", ville);
 
   const { data: participants, error } = await requete;
 

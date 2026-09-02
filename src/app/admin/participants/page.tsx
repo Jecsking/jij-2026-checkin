@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { Participant, Participation, StatutParticipant } from "@/types/database";
 import { supprimerParticipantAction } from "./actions";
 import { ConfirmSubmitButton } from "@/components/confirm-submit-button";
+import { VilleMultiSelect } from "@/components/ville-multi-select";
 
 const PAR_PAGE = 50;
 
@@ -24,7 +25,7 @@ interface RechercheParams {
   profil?: string;
   participation?: string;
   statut?: string;
-  ville?: string;
+  ville?: string | string[];
 }
 
 export default async function ParticipantsPage({
@@ -34,6 +35,11 @@ export default async function ParticipantsPage({
 }) {
   const params = await searchParams;
   const page = Math.max(1, Number(params.page ?? "1") || 1);
+  const villeSelection = Array.isArray(params.ville)
+    ? params.ville
+    : params.ville
+      ? [params.ville]
+      : [];
   const supabase = await createClient();
 
   let requete = supabase
@@ -51,7 +57,8 @@ export default async function ParticipantsPage({
     requete = requete.eq("participation", params.participation as Participation);
   if (params.statut)
     requete = requete.eq("statut", params.statut as StatutParticipant);
-  if (params.ville) requete = requete.eq("commune_normalisee", params.ville);
+  if (villeSelection.length > 0)
+    requete = requete.in("commune_normalisee", villeSelection);
 
   const debut = (page - 1) * PAR_PAGE;
   const { data: participants, count } = await requete.range(
@@ -85,7 +92,11 @@ export default async function ParticipantsPage({
     const p = new URLSearchParams();
     const fusion = { ...params, ...nouveaux };
     Object.entries(fusion).forEach(([k, v]) => {
-      if (v) p.set(k, v);
+      if (Array.isArray(v)) {
+        v.forEach((valeur) => p.append(k, valeur));
+      } else if (v) {
+        p.set(k, v);
+      }
     });
     return `/admin/participants?${p.toString()}`;
   }
@@ -95,7 +106,7 @@ export default async function ParticipantsPage({
   if (params.participation)
     paramsSegmentCampagne.set("participation", params.participation);
   if (params.statut) paramsSegmentCampagne.set("statut", params.statut);
-  if (params.ville) paramsSegmentCampagne.set("ville", params.ville);
+  villeSelection.forEach((v) => paramsSegmentCampagne.append("ville", v));
   const lienCampagne = `/admin/campagnes?${paramsSegmentCampagne.toString()}`;
 
   return (
@@ -164,18 +175,7 @@ export default async function ParticipantsPage({
             </option>
           ))}
         </select>
-        <select
-          name="ville"
-          defaultValue={params.ville ?? ""}
-          className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
-        >
-          <option value="">Toute ville</option>
-          {villes.map((v) => (
-            <option key={v} value={v}>
-              {v}
-            </option>
-          ))}
-        </select>
+        <VilleMultiSelect villes={villes} selection={villeSelection} />
         <button
           type="submit"
           className="rounded-md bg-accent-crimson px-4 py-2 text-sm font-medium text-white hover:bg-accent-crimson/90"
