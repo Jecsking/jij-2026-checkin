@@ -86,7 +86,7 @@ export default async function ClassementPage() {
                 <td className="px-4 py-2">{c.nom}</td>
                 <td className="px-4 py-2 text-fg-muted">
                   {c.score_passage1 !== null
-                    ? (c.score_passage1 * 0.5).toFixed(1)
+                    ? c.score_passage1.toFixed(1)
                     : "—"}
                 </td>
                 <td className="px-4 py-2 text-fg-muted">

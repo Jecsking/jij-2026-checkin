@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { POINTS_MAX_PAR_PASSAGE } from "@/lib/notation";
 import type { Passage } from "@/types/database";
 
 export interface ResultatNotation {
@@ -34,11 +35,12 @@ export async function enregistrerNotesAction(
   );
 
   const erreurs: string[] = [];
+  const maxPourPassage = POINTS_MAX_PAR_PASSAGE[passage];
 
   for (const [cle, valeurBrute] of entrees) {
     const critereId = cle.replace("critere_", "");
     const valeur = Number(valeurBrute);
-    if (Number.isNaN(valeur) || valeur < 0 || valeur > 100) continue;
+    if (Number.isNaN(valeur) || valeur < 0 || valeur > maxPourPassage) continue;
 
     const { error } = await supabase
       .from("notes")

@@ -16,18 +16,21 @@ interface Critere {
 export function NotationForm({
   equipeId,
   passage,
+  maxPoints,
   criteres,
   notesExistantes,
   votesClotures,
 }: {
   equipeId: string;
   passage: Passage;
+  maxPoints: number;
   criteres: Critere[];
   notesExistantes: Record<string, number>;
   votesClotures: boolean;
 }) {
   const action = enregistrerNotesAction.bind(null, equipeId, passage);
   const [etat, dispatch, enCours] = useActionState(action, ETAT_INITIAL);
+  const valeurParDefaut = Math.round(maxPoints / 2);
 
   return (
     <form action={dispatch} className="mt-6 space-y-4">
@@ -51,10 +54,10 @@ export function NotationForm({
             type="range"
             name={`critere_${critere.id}`}
             min={0}
-            max={100}
+            max={maxPoints}
             step={1}
             disabled={votesClotures}
-            defaultValue={notesExistantes[critere.id] ?? 50}
+            defaultValue={notesExistantes[critere.id] ?? valeurParDefaut}
             className="mt-3 w-full accent-primary"
             onInput={(e) => {
               const output = e.currentTarget.nextElementSibling;
@@ -62,7 +65,7 @@ export function NotationForm({
             }}
           />
           <output className="mt-1 block text-sm font-semibold text-primary">
-            {notesExistantes[critere.id] ?? 50}
+            {notesExistantes[critere.id] ?? valeurParDefaut} / {maxPoints}
           </output>
         </div>
       ))}
@@ -85,7 +88,9 @@ export function NotationForm({
           disabled={enCours}
           className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover disabled:opacity-60"
         >
-          {enCours ? "Enregistrement..." : `Enregistrer mes notes — Passage ${passage}`}
+          {enCours
+            ? "Enregistrement..."
+            : `Enregistrer mes notes — Passage ${passage} (/${maxPoints})`}
         </button>
       )}
 

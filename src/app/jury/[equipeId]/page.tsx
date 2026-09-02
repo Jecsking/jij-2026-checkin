@@ -3,9 +3,8 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getUtilisateurConnecte } from "@/lib/auth";
 import { NotationForm } from "./notation-form";
+import { POINTS_MAX_PAR_PASSAGE } from "@/lib/notation";
 import type { Passage } from "@/types/database";
-
-const POINTS_MAX_PAR_PASSAGE: Record<Passage, number> = { 1: 50, 2: 100 };
 
 export default async function NotationEquipePage({
   params,
@@ -91,6 +90,7 @@ export default async function NotationEquipePage({
       <NotationForm
         equipeId={equipeId}
         passage={passage}
+        maxPoints={POINTS_MAX_PAR_PASSAGE[passage]}
         criteres={criteres ?? []}
         notesExistantes={notesExistantes}
         votesClotures={parametres?.votes_clotures ?? false}

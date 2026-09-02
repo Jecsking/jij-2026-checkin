@@ -1,12 +1,11 @@
 -- Chaque équipe passe deux fois devant le jury. Les 3 jurés notent chaque
 -- passage séparément, avec les mêmes critères/pondérations dans les deux
--- cas, sur une échelle 0-100 (au lieu de 0-10). Le passage 1 compte pour
--- 50 points dans la note finale, le passage 2 pour 100 points : la note
--- finale est une SOMME (passage1/2 + passage2), pas une moyenne, donc sur
--- 150 au total.
+-- cas. Le passage 1 est noté directement sur 50, le passage 2 directement
+-- sur 100 : la note finale est leur SOMME (pas une moyenne), donc sur 150
+-- au total — ex. 39/50 + 84/100 = 123/150.
 
--- 1) Échelle 0-100 au lieu de 0-10 (retrouve dynamiquement la contrainte de
---    vérification existante sur "valeur", quel que soit son nom exact).
+-- 1) Retire l'ancienne contrainte de vérification sur "valeur" (0-10),
+--    quel que soit son nom exact, avant d'en ajouter une nouvelle.
 do $$
 declare
   contrainte text;
@@ -21,15 +20,23 @@ begin
   end if;
 end $$;
 
-alter table public.notes
-  add constraint notes_valeur_check check (valeur >= 0 and valeur <= 100);
-
--- 2) Numéro de passage (1 ou 2), et un juré peut noter un même critère une
---    fois par passage (retrouve dynamiquement l'ancienne contrainte
---    d'unicité à 3 colonnes pour la remplacer par une à 4 colonnes).
+-- 2) Numéro de passage (1 ou 2).
 alter table public.notes
   add column passage smallint not null default 1 check (passage in (1, 2));
 
+-- 3) Plafond différent par passage : 50 pour le passage 1, 100 pour le 2.
+alter table public.notes
+  add constraint notes_valeur_check check (
+    valeur >= 0
+    and (
+      (passage = 1 and valeur <= 50)
+      or (passage = 2 and valeur <= 100)
+    )
+  );
+
+-- 4) Un juré peut noter un même critère une fois par passage (retrouve
+--    dynamiquement l'ancienne contrainte d'unicité à 3 colonnes pour la
+--    remplacer par une à 4 colonnes).
 do $$
 declare
   contrainte text;
@@ -48,8 +55,8 @@ alter table public.notes
   add constraint notes_jure_equipe_critere_passage_key
   unique (jure_id, equipe_id, critere_id, passage);
 
--- 3) Classement : moyenne par passage (0-100 chacun), puis somme pondérée
---    (passage 1 × 0.5 + passage 2 × 1) pour la note finale sur 150.
+-- 5) Classement : moyenne par passage (déjà sur 50 et 100 respectivement),
+--    puis somme simple pour la note finale sur 150.
 drop view if exists public.vue_classement;
 
 create view public.vue_classement as
@@ -81,7 +88,7 @@ select
   coalesce(p2.nb_jures, 0) as nb_jures_passage2,
   case
     when p1.score_moyen is null and p2.score_moyen is null then null
-    else coalesce(p1.score_moyen, 0) * 0.5 + coalesce(p2.score_moyen, 0) * 1.0
+    else coalesce(p1.score_moyen, 0) + coalesce(p2.score_moyen, 0)
   end as score_final,
   greatest(coalesce(p1.nb_jures, 0), coalesce(p2.nb_jures, 0)) as nb_jures_ayant_note
 from public.equipes e
