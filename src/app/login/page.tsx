@@ -57,7 +57,7 @@ export default function LoginPage() {
   return (
     <div className="flex flex-1 items-center justify-center bg-bg p-4 md:p-10">
       <div className="grid w-full max-w-6xl overflow-hidden rounded-3xl border border-border bg-surface shadow-xl md:grid-cols-2 md:min-h-[640px]">
-        <div className="relative hidden overflow-hidden bg-brand-navy-deep md:block">
+        <div className="relative h-64 overflow-hidden bg-brand-navy-deep sm:h-80 md:h-auto">
           <Image
             src="/logo/login-hero.png"
             alt="Journée Internationale de la Jeunesse — 2026"
@@ -67,17 +67,17 @@ export default function LoginPage() {
           />
         </div>
 
-        <div className="relative flex flex-col justify-center p-10 sm:p-14 lg:p-16">
+        <div className="relative flex flex-col justify-center p-8 font-montserrat sm:p-14 lg:p-16">
           <div className="absolute right-8 top-8">
             <ThemeToggle />
           </div>
 
           <IconeSunburst className="h-10 w-10 text-primary" />
-          <h1 className="mt-5 font-display text-3xl font-bold text-fg">
+          <h1 className="mt-5 font-bebas text-5xl uppercase tracking-wide text-fg">
             Connexion
           </h1>
           <p className="mt-2 text-base text-fg-muted">
-            Espace admin, hôtesses ou jury — JIJ 2026.
+            Espace admin, hôtesses ou jury… JIJ 2026.
           </p>
 
           <form onSubmit={onSubmit} className="mt-8 max-w-md space-y-5">

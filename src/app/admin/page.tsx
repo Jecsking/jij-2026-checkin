@@ -77,39 +77,87 @@ export default async function AdminDashboardPage() {
       label: "Inscrits (total)",
       valeur: total,
       icone: IconeParticipants,
-      sombre: true,
+      couleur: "crimson",
     },
     {
       label: "Email envoyé, sans réponse",
       valeur: emailEnvoye,
       icone: IconeCampagnes,
-      sombre: false,
+      couleur: "warning",
     },
     {
       label: "En attente d'email",
       valeur: inscrits,
       icone: IconeCampagnes,
-      sombre: false,
+      couleur: "info",
     },
     {
       label: "Présence confirmée",
       valeur: confirmes,
       icone: IconeCheckin,
-      sombre: false,
+      couleur: "success",
     },
     {
       label: "Présents — Jour 1",
       valeur: p1,
       icone: IconeCheckin,
-      sombre: false,
+      couleur: "purple",
     },
     {
       label: "Présents — Jour 2",
       valeur: p2,
       icone: IconeCheckin,
-      sombre: false,
+      couleur: "crimson",
     },
   ];
+
+  const STYLES_COULEUR: Record<
+    string,
+    { bg: string; badge: string; icone: string; texte: string }
+  > = {
+    primary: {
+      bg: "bg-primary/10",
+      badge: "bg-primary",
+      icone: "text-brand-navy-deep",
+      texte: "text-primary-dark",
+    },
+    warning: {
+      bg: "bg-warning/15",
+      badge: "bg-warning",
+      icone: "text-brand-navy-deep",
+      texte: "text-warning-text",
+    },
+    info: {
+      bg: "bg-info/10",
+      badge: "bg-info",
+      icone: "text-brand-navy-deep",
+      texte: "text-info-text",
+    },
+    success: {
+      bg: "bg-success/10",
+      badge: "bg-success",
+      icone: "text-brand-navy-deep",
+      texte: "text-success-text",
+    },
+    purple: {
+      bg: "bg-accent-purple/10",
+      badge: "bg-accent-purple",
+      icone: "text-white",
+      texte: "text-accent-purple",
+    },
+    green: {
+      bg: "bg-accent-green/10",
+      badge: "bg-accent-green",
+      icone: "text-white",
+      texte: "text-accent-green",
+    },
+    crimson: {
+      bg: "bg-accent-crimson/10",
+      badge: "bg-accent-crimson",
+      icone: "text-white",
+      texte: "text-accent-crimson",
+    },
+  };
 
   return (
     <div>
@@ -144,30 +192,21 @@ export default async function AdminDashboardPage() {
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cartes.map((carte) => {
           const Icone = carte.icone;
+          const style = STYLES_COULEUR[carte.couleur];
           return (
             <div
               key={carte.label}
-              className={`rounded-2xl p-5 ${
-                carte.sombre
-                  ? "bg-sidebar"
-                  : "border border-border bg-surface"
-              }`}
+              className={`rounded-2xl p-5 ${style.bg}`}
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
-                <Icone className="h-5 w-5 text-primary-fg" />
-              </div>
-              <p
-                className={`mt-4 text-xs font-semibold uppercase tracking-wide ${
-                  carte.sombre ? "text-sidebar-fg-muted" : "text-fg-muted"
-                }`}
+              <div
+                className={`flex h-10 w-10 items-center justify-center rounded-full ${style.badge}`}
               >
+                <Icone className={`h-5 w-5 ${style.icone}`} />
+              </div>
+              <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-fg-muted">
                 {carte.label}
               </p>
-              <p
-                className={`mt-1 font-display text-3xl font-bold ${
-                  carte.sombre ? "text-white" : "text-fg"
-                }`}
-              >
+              <p className={`mt-1 font-display text-3xl font-bold ${style.texte}`}>
                 {carte.valeur}
               </p>
             </div>
