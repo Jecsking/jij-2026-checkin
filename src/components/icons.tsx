@@ -106,6 +106,18 @@ export function IconeParametres(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function IconeStaff(props: SVGProps<SVGSVGElement>) {
+  return (
+    <Icone {...props}>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <circle cx="9" cy="10" r="2.2" />
+      <path d="M5.5 17c.5-2.2 2.1-3.4 3.5-3.4s3 1.2 3.5 3.4" />
+      <path d="M14.5 9h4" />
+      <path d="M14.5 12.5h4" />
+    </Icone>
+  );
+}
+
 export function IconeDeconnexion(props: SVGProps<SVGSVGElement>) {
   return (
     <Icone {...props}>

@@ -17,9 +17,9 @@ import {
   IconeCheckin,
   IconeEquipes,
   IconeCriteres,
-  IconeJury,
   IconeClassement,
   IconeParametres,
+  IconeStaff,
 } from "@/components/icons";
 
 const CLASSE_ICONE = "h-[18px] w-[18px] shrink-0";
@@ -69,7 +69,6 @@ const SECTIONS = [
         label: "Critères de notation",
         icone: <IconeCriteres className={CLASSE_ICONE} />,
       },
-      { href: "/admin/jury", label: "Jury", icone: <IconeJury className={CLASSE_ICONE} /> },
       {
         href: "/admin/classement",
         label: "Classement",
@@ -80,6 +79,11 @@ const SECTIONS = [
   {
     titre: "Système",
     liens: [
+      {
+        href: "/admin/equipe",
+        label: "Staff",
+        icone: <IconeStaff className={CLASSE_ICONE} />,
+      },
       {
         href: "/admin/parametres",
         label: "Paramètres",

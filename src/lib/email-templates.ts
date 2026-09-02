@@ -23,20 +23,34 @@ export function emailConfirmationHtml(params: {
   </div>`;
 }
 
-export function emailIdentifiantsJuryHtml(params: {
+const LIBELLES_ROLE: Record<string, string> = {
+  admin: "administrateur(rice)",
+  staff: "membre du staff d'entrée (contrôle d'accès)",
+  jury: "membre du jury du hackathon",
+};
+
+const DESTINATIONS_ROLE: Record<string, string> = {
+  admin: "/admin",
+  staff: "/staff/scan",
+  jury: "/jury",
+};
+
+export function emailIdentifiantsEquipeHtml(params: {
   nomComplet: string;
   email: string;
   motDePasse: string;
-  lienConnexion: string;
+  role: "admin" | "staff" | "jury";
+  appUrl: string;
 }) {
-  const { nomComplet, email, motDePasse, lienConnexion } = params;
+  const { nomComplet, email, motDePasse, role, appUrl } = params;
+  const lienConnexion = `${appUrl}/login`;
   return `
   <div style="font-family: Arial, sans-serif; max-width: 560px; margin: 0 auto; color: #1a1a1a;">
-    <h2 style="color: #0f766e;">Accès jury — Hackathon JIJ 2026</h2>
+    <h2 style="color: #0f766e;">Vos accès — JIJ 2026</h2>
     <p>Bonjour ${nomComplet},</p>
     <p>
-      Vous avez été désigné(e) membre du jury du hackathon de la JIJ 2026.
-      Voici vos identifiants de connexion à l'espace de notation :
+      Un compte ${LIBELLES_ROLE[role] ?? "membre de l'équipe"} vient d'être créé pour vous
+      sur la plateforme JIJ 2026. Voici vos identifiants de connexion :
     </p>
     <p>
       Email : <strong>${email}</strong><br/>
@@ -45,11 +59,15 @@ export function emailIdentifiantsJuryHtml(params: {
     <p style="text-align: center; margin: 32px 0;">
       <a href="${lienConnexion}"
          style="background:#0f766e;color:#ffffff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold;">
-        Accéder à l'espace jury
+        Me connecter
       </a>
     </p>
-    <p>Vous pourrez changer ce mot de passe après votre première connexion.</p>
-    <p>Merci pour votre participation,<br/>L'équipe d'organisation de la JIJ 2026</p>
+    <p>
+      Une fois connecté(e), vous serez redirigé(e) automatiquement vers votre espace
+      (${appUrl}${DESTINATIONS_ROLE[role] ?? ""}). Vous pourrez changer ce mot de passe
+      après votre première connexion, depuis « Mon compte ».
+    </p>
+    <p>Merci pour votre implication,<br/>L'équipe d'organisation de la JIJ 2026</p>
   </div>`;
 }
 

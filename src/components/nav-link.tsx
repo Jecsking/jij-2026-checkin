@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { useSidebar } from "@/components/sidebar/sidebar-context";
+import { estActif } from "@/lib/nav-items";
 
 export function NavLink({
   href,
@@ -18,7 +19,7 @@ export function NavLink({
 }) {
   const pathname = usePathname();
   const { reduite } = useSidebar();
-  const actif = exact ? pathname === href : pathname.startsWith(href);
+  const actif = estActif(pathname, href, exact);
 
   return (
     <Link
