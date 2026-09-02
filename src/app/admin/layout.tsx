@@ -10,6 +10,7 @@ import { DeconnexionBouton } from "@/components/deconnexion-bouton";
 import { SidebarProvider } from "@/components/sidebar/sidebar-context";
 import { SidebarAside } from "@/components/sidebar/sidebar-aside";
 import { SidebarLabel } from "@/components/sidebar/sidebar-label";
+import { AddGuestCard } from "@/components/sidebar/add-guest-card";
 import {
   IconeTableauDeBord,
   IconeParticipants,
@@ -116,6 +117,27 @@ export default async function AdminLayout({
     .select("id", { count: "exact", head: true })
     .eq("statut_brevo", "echec");
 
+  const { data: echecsRecents } = await supabase
+    .from("emails_envoyes")
+    .select("id, type, date_envoi, erreur, participants(nom_complet, email)")
+    .eq("statut_brevo", "echec")
+    .order("date_envoi", { ascending: false })
+    .limit(5);
+
+  const echecs = (echecsRecents ?? []).map((e) => {
+    const participant = Array.isArray(e.participants)
+      ? e.participants[0]
+      : e.participants;
+    return {
+      id: e.id,
+      type: e.type,
+      date_envoi: e.date_envoi,
+      erreur: e.erreur,
+      nom: participant?.nom_complet ?? null,
+      email: participant?.email ?? null,
+    };
+  });
+
   return (
     <SidebarProvider>
       <div className="flex min-h-full flex-1 bg-bg">
@@ -152,6 +174,8 @@ export default async function AdminLayout({
               </div>
             ))}
           </nav>
+
+          <AddGuestCard />
 
           <div className="border-t border-white/10 p-3">
             <SidebarLabel>
@@ -194,7 +218,7 @@ export default async function AdminLayout({
                   <path d="m20 20-3.5-3.5" />
                 </svg>
               </Link>
-              <NotificationBell nombre={echecsCount ?? 0} />
+              <NotificationBell nombre={echecsCount ?? 0} echecs={echecs} />
               <ThemeToggle />
               <Link
                 href="/compte"

@@ -118,6 +118,17 @@ export function IconeStaff(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function IconeAjouterInvite(props: SVGProps<SVGSVGElement>) {
+  return (
+    <Icone {...props}>
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6" />
+      <path d="M18.5 8v6" />
+      <path d="M15.5 11h6" />
+    </Icone>
+  );
+}
+
 export function IconeDeconnexion(props: SVGProps<SVGSVGElement>) {
   return (
     <Icone {...props}>
