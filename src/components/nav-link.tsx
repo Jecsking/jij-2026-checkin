@@ -2,17 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { ComponentType, SVGProps } from "react";
+import type { ReactNode } from "react";
 
 export function NavLink({
   href,
   label,
-  icone: Icone,
+  icone,
   exact = false,
 }: {
   href: string;
   label: string;
-  icone: ComponentType<SVGProps<SVGSVGElement>>;
+  icone: ReactNode;
   exact?: boolean;
 }) {
   const pathname = usePathname();
@@ -27,7 +27,7 @@ export function NavLink({
           : "text-sidebar-fg-muted hover:bg-sidebar-hover hover:text-white"
       }`}
     >
-      <Icone className="h-[18px] w-[18px] shrink-0" />
+      {icone}
       {label}
     </Link>
   );

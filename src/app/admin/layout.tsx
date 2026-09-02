@@ -16,34 +16,69 @@ import {
   IconeParametres,
 } from "@/components/icons";
 
+const CLASSE_ICONE = "h-[18px] w-[18px] shrink-0";
+
 const SECTIONS = [
   {
     titre: "Vue d'ensemble",
     liens: [
-      { href: "/admin", label: "Tableau de bord", icone: IconeTableauDeBord, exact: true },
+      {
+        href: "/admin",
+        label: "Tableau de bord",
+        icone: <IconeTableauDeBord className={CLASSE_ICONE} />,
+        exact: true,
+      },
     ],
   },
   {
     titre: "Participants",
     liens: [
-      { href: "/admin/participants", label: "Participants", icone: IconeParticipants },
-      { href: "/admin/campagnes", label: "Campagnes email", icone: IconeCampagnes },
-      { href: "/admin/checkin", label: "Check-in temps réel", icone: IconeCheckin },
+      {
+        href: "/admin/participants",
+        label: "Participants",
+        icone: <IconeParticipants className={CLASSE_ICONE} />,
+      },
+      {
+        href: "/admin/campagnes",
+        label: "Campagnes email",
+        icone: <IconeCampagnes className={CLASSE_ICONE} />,
+      },
+      {
+        href: "/admin/checkin",
+        label: "Check-in temps réel",
+        icone: <IconeCheckin className={CLASSE_ICONE} />,
+      },
     ],
   },
   {
     titre: "Hackathon",
     liens: [
-      { href: "/admin/equipes", label: "Équipes", icone: IconeEquipes },
-      { href: "/admin/criteres", label: "Critères de notation", icone: IconeCriteres },
-      { href: "/admin/jury", label: "Jury", icone: IconeJury },
-      { href: "/admin/classement", label: "Classement", icone: IconeClassement },
+      {
+        href: "/admin/equipes",
+        label: "Équipes",
+        icone: <IconeEquipes className={CLASSE_ICONE} />,
+      },
+      {
+        href: "/admin/criteres",
+        label: "Critères de notation",
+        icone: <IconeCriteres className={CLASSE_ICONE} />,
+      },
+      { href: "/admin/jury", label: "Jury", icone: <IconeJury className={CLASSE_ICONE} /> },
+      {
+        href: "/admin/classement",
+        label: "Classement",
+        icone: <IconeClassement className={CLASSE_ICONE} />,
+      },
     ],
   },
   {
     titre: "Système",
     liens: [
-      { href: "/admin/parametres", label: "Paramètres", icone: IconeParametres },
+      {
+        href: "/admin/parametres",
+        label: "Paramètres",
+        icone: <IconeParametres className={CLASSE_ICONE} />,
+      },
     ],
   },
 ];
