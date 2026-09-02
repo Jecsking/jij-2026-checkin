@@ -150,23 +150,21 @@ export default async function AdminLayout({
           </nav>
 
           <div className="border-t border-white/10 p-3">
-            <Link
-              href="/compte"
-              className="flex items-center gap-3 rounded-xl px-2 py-2 transition-colors hover:bg-sidebar-hover"
-            >
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent-gold font-display text-sm font-bold text-brand-navy-deep">
-                {initiales(nom)}
-              </div>
-              <SidebarLabel>
-                <div className="min-w-0 flex-1 leading-tight">
-                  <p className="truncate text-sm font-medium text-white">{nom}</p>
-                  <p className="text-[11px] text-sidebar-fg-muted">Espace admin</p>
-                </div>
-              </SidebarLabel>
-            </Link>
             <SidebarLabel>
-              <DeconnexionBouton className="mt-1 w-full justify-start px-2 py-2 text-sidebar-fg-muted hover:bg-sidebar-hover hover:text-white" />
+              <div className="px-2 pb-2">
+                <p className="text-[10px] uppercase tracking-wider text-sidebar-fg-muted/70">
+                  Développé par
+                </p>
+                <Image
+                  src="/logo/forteresse-wordmark.png"
+                  alt="Forteresse"
+                  width={160}
+                  height={50}
+                  className="mt-1 h-5 w-auto object-contain"
+                />
+              </div>
             </SidebarLabel>
+            <DeconnexionBouton className="w-full justify-start px-2 py-2 text-sidebar-fg-muted hover:bg-sidebar-hover hover:text-white" />
           </div>
         </SidebarAside>
 
