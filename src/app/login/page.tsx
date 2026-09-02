@@ -58,7 +58,7 @@ export default function LoginPage() {
       <div className="grid w-full max-w-6xl overflow-hidden rounded-3xl border border-border bg-surface shadow-xl md:grid-cols-2 md:min-h-[640px]">
         <div className="relative aspect-[1148/1370] overflow-hidden bg-brand-navy-deep md:aspect-auto md:h-auto">
           <Image
-            src="/logo/login-hero.png"
+            src="/logo/login-hero.jpg"
             alt="Journée Internationale de la Jeunesse — 2026"
             fill
             priority
