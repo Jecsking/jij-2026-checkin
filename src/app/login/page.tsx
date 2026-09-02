@@ -5,6 +5,7 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { IconeOeil, IconeOeilBarre } from "@/components/icons";
 
 const DESTINATION_PAR_ROLE: Record<string, string> = {
   admin: "/admin",
@@ -16,6 +17,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
+  const [motDePasseVisible, setMotDePasseVisible] = useState(false);
   const [erreur, setErreur] = useState<string | null>(null);
   const [chargement, setChargement] = useState(false);
 
@@ -103,13 +105,31 @@ export default function LoginPage() {
               <label className="block text-sm text-fg-muted">
                 Mot de passe
               </label>
-              <input
-                type="password"
-                required
-                value={motDePasse}
-                onChange={(e) => setMotDePasse(e.target.value)}
-                className="mt-2 w-full rounded-lg border border-border bg-surface px-4 py-3 text-base text-fg focus:border-primary focus:outline-none"
-              />
+              <div className="relative mt-2">
+                <input
+                  type={motDePasseVisible ? "text" : "password"}
+                  required
+                  value={motDePasse}
+                  onChange={(e) => setMotDePasse(e.target.value)}
+                  className="w-full rounded-lg border border-border bg-surface px-4 py-3 pr-11 text-base text-fg focus:border-primary focus:outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => setMotDePasseVisible((v) => !v)}
+                  aria-label={
+                    motDePasseVisible
+                      ? "Masquer le mot de passe"
+                      : "Afficher le mot de passe"
+                  }
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-fg-muted hover:text-fg"
+                >
+                  {motDePasseVisible ? (
+                    <IconeOeilBarre className="h-5 w-5" />
+                  ) : (
+                    <IconeOeil className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
             </div>
 
             {erreur && <p className="text-sm text-error-text">{erreur}</p>}

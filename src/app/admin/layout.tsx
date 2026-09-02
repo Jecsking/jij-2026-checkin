@@ -1,18 +1,15 @@
 import Image from "next/image";
-import Link from "next/link";
 import { exigerRole } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { avatarAnimal } from "@/lib/avatar-animal";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { NavLink } from "@/components/nav-link";
-import { PageTitle } from "@/components/page-title";
-import { NotificationBell } from "@/components/notification-bell";
+import { AppHeader } from "@/components/app-header";
 import { DeconnexionBouton } from "@/components/deconnexion-bouton";
 import { SidebarProvider } from "@/components/sidebar/sidebar-context";
 import { SidebarAside } from "@/components/sidebar/sidebar-aside";
 import { SidebarLabel } from "@/components/sidebar/sidebar-label";
-import { SidebarMobileToggle } from "@/components/sidebar/sidebar-mobile-toggle";
 import { AddGuestCard } from "@/components/sidebar/add-guest-card";
+import { NAV_ITEMS } from "@/lib/nav-items";
 import {
   IconeTableauDeBord,
   IconeParticipants,
@@ -27,7 +24,7 @@ import {
 
 const CLASSE_ICONE = "h-[18px] w-[18px] shrink-0";
 
-const SECTIONS = [
+const SECTIONS_BASE = [
   {
     titre: "Vue d'ensemble",
     liens: [
@@ -83,11 +80,6 @@ const SECTIONS = [
     titre: "Système",
     liens: [
       {
-        href: "/admin/equipe",
-        label: "Équipe",
-        icone: <IconeStaff className={CLASSE_ICONE} />,
-      },
-      {
         href: "/admin/parametres",
         label: "Paramètres",
         icone: <IconeParametres className={CLASSE_ICONE} />,
@@ -95,6 +87,12 @@ const SECTIONS = [
     ],
   },
 ];
+
+const LIEN_EQUIPE = {
+  href: "/admin/equipe",
+  label: "Équipe",
+  icone: <IconeStaff className={CLASSE_ICONE} />,
+};
 
 export default async function AdminLayout({
   children,
@@ -130,6 +128,14 @@ export default async function AdminLayout({
       email: participant?.email ?? null,
     };
   });
+
+  const SECTIONS = connecte.profil?.super_admin
+    ? SECTIONS_BASE.map((section) =>
+        section.titre === "Système"
+          ? { ...section, liens: [LIEN_EQUIPE, ...section.liens] }
+          : section
+      )
+    : SECTIONS_BASE;
 
   return (
     <SidebarProvider>
@@ -187,43 +193,14 @@ export default async function AdminLayout({
         </SidebarAside>
 
         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-surface px-4 py-3 md:px-6">
-            <div className="flex items-center gap-3">
-              <SidebarMobileToggle />
-              <PageTitle />
-            </div>
-            <div className="flex items-center gap-2">
-              <Link
-                href="/admin/participants"
-                aria-label="Rechercher un participant"
-                className="flex h-8 w-8 items-center justify-center rounded-md text-fg-muted hover:bg-surface-hover hover:text-fg"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.8}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-[18px] w-[18px]"
-                >
-                  <circle cx="11" cy="11" r="7" />
-                  <path d="m20 20-3.5-3.5" />
-                </svg>
-              </Link>
-              <NotificationBell nombre={echecsCount ?? 0} echecs={echecs} />
-              <ThemeToggle />
-              <div className="ml-2 flex items-center gap-2 border-l border-border pl-3">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-base">
-                  {avatarAnimal(connecte.user.id)}
-                </div>
-                <span className="hidden text-sm font-medium text-fg sm:inline">
-                  {nom}
-                </span>
-              </div>
-            </div>
-          </header>
+          <AppHeader
+            navItems={NAV_ITEMS}
+            rechercheHref="/admin/participants"
+            nom={nom}
+            avatar={avatarAnimal(connecte.user.id)}
+            echecsCount={echecsCount ?? 0}
+            echecs={echecs}
+          />
           <main className="flex-1 p-4 md:p-8">{children}</main>
         </div>
       </div>

@@ -41,15 +41,48 @@ export default async function JuryHomePage() {
     );
   }
 
+  const equipesListe = equipes ?? [];
+  const nbEquipesNotees = equipesListe.filter((e) => {
+    const nbNotes = notesParEquipe.get(e.id) ?? 0;
+    return nbCriteres > 0 && nbNotes >= nbCriteres;
+  }).length;
+
   return (
-    <div className="max-w-2xl">
-      <h1 className="text-xl font-semibold text-fg">Équipes à noter</h1>
+    <div>
+      <h1 className="text-2xl font-semibold text-fg">Tableau de bord</h1>
       <p className="mt-1 text-sm text-fg-muted">
-        {nbCriteres} critère(s) actif(s). Vos notes restent privées jusqu&apos;à
-        la clôture du vote.
+        Vos notes restent privées jusqu&apos;à la clôture du vote.
       </p>
 
-      <div className="mt-4 space-y-2">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="rounded-2xl border border-border bg-surface p-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-fg-muted">
+            Équipes
+          </p>
+          <p className="mt-1 font-display text-3xl font-bold text-fg">
+            {equipesListe.length}
+          </p>
+        </div>
+        <div className="rounded-2xl border border-border bg-surface p-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-fg-muted">
+            Critères actifs
+          </p>
+          <p className="mt-1 font-display text-3xl font-bold text-fg">
+            {nbCriteres}
+          </p>
+        </div>
+        <div className="rounded-2xl bg-primary/10 p-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-fg-muted">
+            Notées par vous
+          </p>
+          <p className="mt-1 font-display text-3xl font-bold text-primary-dark">
+            {nbEquipesNotees} / {equipesListe.length}
+          </p>
+        </div>
+      </div>
+
+      <h2 className="mt-8 text-lg font-semibold text-fg">Équipes à noter</h2>
+      <div className="mt-4 max-w-2xl space-y-2">
         {(equipes ?? []).map((equipe) => {
           const nbNotes = notesParEquipe.get(equipe.id) ?? 0;
           const complet = nbCriteres > 0 && nbNotes >= nbCriteres;

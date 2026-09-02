@@ -118,6 +118,25 @@ export function IconeStaff(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function IconeOeil(props: SVGProps<SVGSVGElement>) {
+  return (
+    <Icone {...props}>
+      <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z" />
+      <circle cx="12" cy="12" r="3" />
+    </Icone>
+  );
+}
+
+export function IconeOeilBarre(props: SVGProps<SVGSVGElement>) {
+  return (
+    <Icone {...props}>
+      <path d="M3 3l18 18" />
+      <path d="M10.6 5.2C11 5.1 11.5 5 12 5c7 0 10.5 7 10.5 7a13.2 13.2 0 0 1-3.1 3.9M6.6 6.6C3.7 8.4 1.5 12 1.5 12s3.5 7 10.5 7c1.3 0 2.5-.2 3.6-.6" />
+      <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+    </Icone>
+  );
+}
+
 export function IconeAjouterInvite(props: SVGProps<SVGSVGElement>) {
   return (
     <Icone {...props}>

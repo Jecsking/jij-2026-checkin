@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { envoyerEmailTransactionnel } from "@/lib/brevo";
 import { emailIdentifiantsEquipeHtml } from "@/lib/email-templates";
@@ -15,13 +16,36 @@ export interface ResultatCreationMembre {
 
 const ROLES_VALIDES: RoleUtilisateur[] = ["admin", "staff", "jury"];
 
+async function exigerSuperAdmin(): Promise<string | null> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return "Non authentifié.";
+
+  const { data: profil } = await supabase
+    .from("profils_utilisateurs")
+    .select("super_admin")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (!profil?.super_admin) {
+    return "Seul un super admin peut gérer l'équipe.";
+  }
+  return null;
+}
+
 export async function creerMembreEquipeAction(
   _prevState: ResultatCreationMembre,
   formData: FormData
 ): Promise<ResultatCreationMembre> {
+  const erreurAcces = await exigerSuperAdmin();
+  if (erreurAcces) return { erreur: erreurAcces };
+
   const nomComplet = (formData.get("nom_complet") as string)?.trim();
   const email = (formData.get("email") as string)?.trim().toLowerCase();
   const role = formData.get("role") as RoleUtilisateur;
+  const superAdmin = formData.get("super_admin") === "on";
   const motDePasseSaisi = (formData.get("mot_de_passe") as string)?.trim();
   const appUrl = process.env.NEXT_PUBLIC_APP_URL;
 
@@ -54,9 +78,12 @@ export async function creerMembreEquipeAction(
     };
   }
 
-  const { error: erreurProfil } = await admin
-    .from("profils_utilisateurs")
-    .insert({ id: utilisateur.user.id, role, nom_complet: nomComplet });
+  const { error: erreurProfil } = await admin.from("profils_utilisateurs").insert({
+    id: utilisateur.user.id,
+    role,
+    nom_complet: nomComplet,
+    super_admin: role === "admin" ? superAdmin : false,
+  });
 
   if (erreurProfil) {
     return { erreur: `Compte créé mais échec d'attribution du rôle : ${erreurProfil.message}` };
@@ -96,6 +123,9 @@ export async function creerMembreEquipeAction(
 }
 
 export async function supprimerMembreEquipeAction(formData: FormData) {
+  const erreurAcces = await exigerSuperAdmin();
+  if (erreurAcces) return;
+
   const id = formData.get("id") as string;
   const jureId = formData.get("jure_id") as string | null;
   if (!id) return;

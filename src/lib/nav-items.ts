@@ -16,6 +16,15 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/admin/parametres", label: "Paramètres" },
 ];
 
+export const NAV_ITEMS_HOTESSE: NavItem[] = [
+  { href: "/staff/scan", label: "Scanner", exact: true },
+  { href: "/staff/participants", label: "Participants" },
+];
+
+export const NAV_ITEMS_JURY: NavItem[] = [
+  { href: "/jury", label: "Tableau de bord", exact: true },
+];
+
 /**
  * Le préfixe seul (pathname.startsWith(href)) ferait matcher "/admin/equipe"
  * (Équipe) sur "/admin/equipes" (Équipes hackathon). On exige une frontière

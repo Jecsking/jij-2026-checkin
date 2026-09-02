@@ -33,7 +33,7 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: "JIJ 2026 — Check-in & Hackathon",
-  description: "Plateforme de check-in et de notation du hackathon — JIJ 2026",
+  description: "Plateforme de check-in et de notation du hackathon JIJ 2026",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

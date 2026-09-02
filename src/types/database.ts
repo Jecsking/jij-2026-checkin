@@ -96,6 +96,7 @@ export type ProfilUtilisateur = {
   id: string;
   role: RoleUtilisateur;
   nom_complet: string | null;
+  super_admin: boolean;
   created_at: string;
 };
 

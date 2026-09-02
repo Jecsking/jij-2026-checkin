@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { getUtilisateurConnecte } from "@/lib/auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { CreerMembreForm } from "./creer-membre-form";
 import { supprimerMembreEquipeAction } from "./actions";
@@ -9,6 +11,11 @@ const LIBELLES_ROLE: Record<string, { texte: string; classe: string }> = {
 };
 
 export default async function EquipePage() {
+  const connecte = await getUtilisateurConnecte();
+  if (!connecte?.profil?.super_admin) {
+    redirect("/admin");
+  }
+
   const admin = createAdminClient();
 
   const { data: profils } = await admin
@@ -74,6 +81,11 @@ export default async function EquipePage() {
                     >
                       {libelle.texte}
                     </span>
+                    {m.role === "admin" && m.super_admin && (
+                      <span className="ml-1.5 rounded-full bg-primary/15 px-2 py-0.5 text-xs font-medium text-primary-dark">
+                        Super admin
+                      </span>
+                    )}
                   </td>
                   <td className="px-4 py-2">
                     <form action={supprimerMembreEquipeAction}>

@@ -1,15 +1,21 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { NAV_ITEMS, estActif } from "@/lib/nav-items";
+import { estActif, type NavItem } from "@/lib/nav-items";
 
-export function PageTitle() {
+export function PageTitle({
+  items,
+  fallback = "Admin",
+}: {
+  items: NavItem[];
+  fallback?: string;
+}) {
   const pathname = usePathname();
-  const item = NAV_ITEMS.find((i) => estActif(pathname, i.href, i.exact));
+  const item = items.find((i) => estActif(pathname, i.href, i.exact));
 
   return (
     <h1 className="font-display text-xl font-bold text-fg">
-      {item?.label ?? "Admin"}
+      {item?.label ?? fallback}
     </h1>
   );
 }

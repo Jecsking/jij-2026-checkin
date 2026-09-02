@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { creerMembreEquipeAction, type ResultatCreationMembre } from "./actions";
 
 const ETAT_INITIAL: ResultatCreationMembre = {};
@@ -10,6 +10,7 @@ export function CreerMembreForm() {
     creerMembreEquipeAction,
     ETAT_INITIAL
   );
+  const [role, setRole] = useState("staff");
 
   return (
     <form
@@ -39,7 +40,8 @@ export function CreerMembreForm() {
         <select
           name="role"
           required
-          defaultValue="staff"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
           className="mt-1 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
         >
           <option value="admin">Admin (accès complet)</option>
@@ -59,6 +61,12 @@ export function CreerMembreForm() {
           className="mt-1 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-muted"
         />
       </div>
+      {role === "admin" && (
+        <label className="mb-2 flex items-center gap-2 text-xs text-fg-muted">
+          <input type="checkbox" name="super_admin" className="h-4 w-4" />
+          Super admin (peut gérer l&apos;équipe)
+        </label>
+      )}
       <button
         type="submit"
         disabled={enCours}
