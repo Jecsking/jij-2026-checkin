@@ -130,7 +130,7 @@ export default async function EquipesPage() {
               />
               <button
                 type="submit"
-                className="rounded-md bg-accent-gold px-3 py-1.5 text-sm font-medium text-brand-navy-deep hover:bg-accent-gold/90"
+                className="rounded-md bg-accent-crimson px-3 py-1.5 text-sm font-medium text-white hover:bg-accent-crimson/90"
               >
                 Ajouter
               </button>

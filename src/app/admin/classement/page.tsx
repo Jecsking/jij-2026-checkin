@@ -34,7 +34,7 @@ export default async function ClassementPage() {
             className={`rounded-md px-4 py-2 text-sm font-medium ${
               parametres?.votes_clotures
                 ? "bg-warning-soft text-fg"
-                : "bg-accent-gold text-brand-navy-deep hover:bg-accent-gold/90"
+                : "bg-accent-crimson text-white hover:bg-accent-crimson/90"
             }`}
           >
             {parametres?.votes_clotures

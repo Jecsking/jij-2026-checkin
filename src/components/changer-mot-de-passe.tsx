@@ -48,7 +48,7 @@ export function ChangerMotDePasse() {
       />
       <button
         type="submit"
-        className="rounded-md bg-accent-gold px-4 py-2 text-sm font-medium text-brand-navy-deep hover:bg-accent-gold/90"
+        className="rounded-md bg-accent-crimson px-4 py-2 text-sm font-medium text-white hover:bg-accent-crimson/90"
       >
         Mettre à jour
       </button>
