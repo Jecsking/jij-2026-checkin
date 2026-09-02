@@ -43,7 +43,7 @@ export function CreerMembreForm() {
           className="mt-1 rounded-md border border-border bg-surface px-3 py-2 text-sm"
         >
           <option value="admin">Admin (accès complet)</option>
-          <option value="staff">Staff (contrôle d&apos;accès)</option>
+          <option value="staff">Hôtesse (contrôle d&apos;accès)</option>
           <option value="jury">Jury (notation)</option>
         </select>
       </div>

@@ -4,7 +4,7 @@ import { supprimerMembreEquipeAction } from "./actions";
 
 const LIBELLES_ROLE: Record<string, { texte: string; classe: string }> = {
   admin: { texte: "Admin", classe: "bg-accent-crimson/10 text-accent-crimson" },
-  staff: { texte: "Staff", classe: "bg-info/10 text-info-text" },
+  staff: { texte: "Hôtesse", classe: "bg-info/10 text-info-text" },
   jury: { texte: "Jury", classe: "bg-accent-purple/10 text-accent-purple" },
 };
 
@@ -34,10 +34,10 @@ export default async function EquipePage() {
 
   return (
     <div className="max-w-3xl">
-      <h1 className="text-2xl font-semibold text-fg">Staff</h1>
+      <h1 className="text-2xl font-semibold text-fg">Équipe</h1>
       <p className="mt-1 text-sm text-fg-muted">
         Gérez qui a accès à la plateforme : administrateurs (accès complet),
-        staff d&apos;entrée (contrôle d&apos;accès uniquement) et jury
+        hôtesses d&apos;accueil (contrôle d&apos;accès uniquement) et jury
         (notation uniquement). Chaque personne reçoit ses identifiants par
         email.
       </p>

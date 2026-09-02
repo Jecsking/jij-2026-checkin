@@ -3,6 +3,10 @@ import Link from "next/link";
 import { exigerRole } from "@/lib/auth";
 import { DeconnexionBouton } from "@/components/deconnexion-bouton";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { StaffNavLink } from "@/components/staff/staff-nav-link";
+import { IconeCheckin, IconeParticipants } from "@/components/icons";
+
+const CLASSE_ICONE = "h-[18px] w-[18px] shrink-0";
 
 export default async function StaffLayout({
   children,
@@ -17,7 +21,7 @@ export default async function StaffLayout({
         <div className="flex items-center gap-2.5">
           <Image src="/logo/icone-jij.png" alt="JIJ 2026" width={28} height={28} className="h-7 w-7" />
           <h1 className="font-display text-sm font-bold text-fg">
-            Contrôle d&apos;accès
+            Espace hôtesses
           </h1>
         </div>
         <div className="flex items-center gap-4">
@@ -28,7 +32,21 @@ export default async function StaffLayout({
           <ThemeToggle />
         </div>
       </header>
-      <main className="flex-1">{children}</main>
+      <div className="flex flex-1">
+        <aside className="w-56 shrink-0 space-y-1 border-r border-white/10 bg-sidebar p-3">
+          <StaffNavLink
+            href="/staff/scan"
+            label="Scanner"
+            icone={<IconeCheckin className={CLASSE_ICONE} />}
+          />
+          <StaffNavLink
+            href="/staff/participants"
+            label="Participants"
+            icone={<IconeParticipants className={CLASSE_ICONE} />}
+          />
+        </aside>
+        <main className="flex-1">{children}</main>
+      </div>
     </div>
   );
 }

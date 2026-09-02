@@ -12,13 +12,13 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/admin/equipes", label: "Équipes" },
   { href: "/admin/criteres", label: "Critères de notation" },
   { href: "/admin/classement", label: "Classement" },
-  { href: "/admin/equipe", label: "Staff" },
+  { href: "/admin/equipe", label: "Équipe" },
   { href: "/admin/parametres", label: "Paramètres" },
 ];
 
 /**
  * Le préfixe seul (pathname.startsWith(href)) ferait matcher "/admin/equipe"
- * (Staff) sur "/admin/equipes" (Équipes hackathon). On exige une frontière
+ * (Équipe) sur "/admin/equipes" (Équipes hackathon). On exige une frontière
  * de segment : égalité exacte ou suivi d'un "/".
  */
 export function estActif(

@@ -74,7 +74,7 @@ export default function LoginPage() {
             Connexion
           </h1>
           <p className="mt-1 text-sm text-fg-muted">
-            Espace admin, staff d&apos;entrée ou jury — JIJ 2026.
+            Espace admin, hôtesses ou jury — JIJ 2026.
           </p>
         </div>
 

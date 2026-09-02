@@ -82,7 +82,7 @@ const SECTIONS = [
     liens: [
       {
         href: "/admin/equipe",
-        label: "Staff",
+        label: "Équipe",
         icone: <IconeStaff className={CLASSE_ICONE} />,
       },
       {

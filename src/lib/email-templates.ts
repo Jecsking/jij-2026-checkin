@@ -25,7 +25,7 @@ export function emailConfirmationHtml(params: {
 
 const LIBELLES_ROLE: Record<string, string> = {
   admin: "administrateur(rice)",
-  staff: "membre du staff d'entrée (contrôle d'accès)",
+  staff: "hôtesse d'accueil (contrôle d'accès)",
   jury: "membre du jury du hackathon",
 };
 
