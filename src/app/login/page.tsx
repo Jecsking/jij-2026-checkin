@@ -5,7 +5,6 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { IconeSunburst } from "@/components/icons";
 
 const DESTINATION_PAR_ROLE: Record<string, string> = {
   admin: "/admin",
@@ -72,7 +71,13 @@ export default function LoginPage() {
             <ThemeToggle />
           </div>
 
-          <IconeSunburst className="h-10 w-10 text-primary" />
+          <Image
+            src="/logo/icone-jij.png"
+            alt="JIJ 2026"
+            width={44}
+            height={44}
+            className="h-11 w-11"
+          />
           <h1 className="mt-5 font-bebas text-5xl uppercase tracking-wide text-fg">
             Connexion
           </h1>

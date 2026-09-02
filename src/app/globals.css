@@ -17,10 +17,10 @@
   --brand-purple: #8b7cf6;
 
   /* Couleur principale (identité, CTA, actions, éléments actifs) */
-  --primary: #f0bf62;
-  --primary-hover: #e3ac45;
-  --primary-dark: #8c6015;
-  --primary-soft: #fdf1d9;
+  --primary: #f8d00f;
+  --primary-hover: #dfba0d;
+  --primary-dark: #8a6a00;
+  --primary-soft: #fdf3c9;
   --primary-fg: #241a05;
 
   /* Couleurs fonctionnelles (feedback, statuts — distinctes de la marque).
@@ -53,12 +53,13 @@
   --fg-secondary: #52645f;
   --fg-muted: #7c8d88;
 
-  /* Sidebar : toujours sombre, dans les deux thèmes */
-  --sidebar: #001d19;
-  --sidebar-elevated: #0b2621;
-  --sidebar-hover: #144039;
-  --sidebar-fg: #f2f8f6;
-  --sidebar-fg-muted: #718983;
+  /* Sidebar : toujours sombre, dans les deux thèmes — noir neutre, sans
+     teinte verte (même famille que les neutres du thème sombre). */
+  --sidebar: #0a0a0a;
+  --sidebar-elevated: #141414;
+  --sidebar-hover: #212121;
+  --sidebar-fg: #f5f5f5;
+  --sidebar-fg-muted: #8f8f8f;
 }
 
 .dark {
@@ -78,10 +79,10 @@
 
   /* La couleur principale reste identique en sombre : même identité
      de marque dans les deux thèmes. */
-  --primary: #f0bf62;
-  --primary-hover: #e3ac45;
-  --primary-dark: #8c6015;
-  --primary-soft: #3d2e10;
+  --primary: #f8d00f;
+  --primary-hover: #dfba0d;
+  --primary-dark: #8a6a00;
+  --primary-soft: #3d3406;
   --primary-fg: #241a05;
 
   /* Fonctionnelles : mêmes teintes, fonds "soft" recalculés pour rester
