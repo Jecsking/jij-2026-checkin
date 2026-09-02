@@ -10,7 +10,6 @@ import { DeconnexionBouton } from "@/components/deconnexion-bouton";
 import { SidebarProvider } from "@/components/sidebar/sidebar-context";
 import { SidebarAside } from "@/components/sidebar/sidebar-aside";
 import { SidebarLabel } from "@/components/sidebar/sidebar-label";
-import { SidebarCollapseButton } from "@/components/sidebar/sidebar-collapse-button";
 import {
   IconeTableauDeBord,
   IconeParticipants,
@@ -174,7 +173,6 @@ export default async function AdminLayout({
         <div className="flex flex-1 flex-col">
           <header className="flex items-center justify-between border-b border-border bg-surface px-6 py-3">
             <div className="flex items-center gap-3">
-              <SidebarCollapseButton />
               <PageTitle />
             </div>
             <div className="flex items-center gap-2">
