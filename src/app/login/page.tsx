@@ -54,37 +54,37 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex flex-1 items-center justify-center bg-bg p-4 md:p-8">
-      <div className="grid w-full max-w-4xl overflow-hidden rounded-3xl border border-border bg-surface shadow-xl md:grid-cols-2">
-        <div className="relative hidden flex-col justify-between overflow-hidden bg-brand-navy-deep p-10 md:flex">
-          <div className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-primary/50 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-16 left-24 h-56 w-56 rounded-full bg-primary/70 blur-2xl" />
+    <div className="flex flex-1 items-center justify-center bg-bg p-4 md:p-10">
+      <div className="grid w-full max-w-6xl overflow-hidden rounded-3xl border border-border bg-surface shadow-xl md:grid-cols-2 md:min-h-[640px]">
+        <div className="relative hidden flex-col justify-between overflow-hidden bg-brand-navy-deep p-14 md:flex">
+          <div className="pointer-events-none absolute -bottom-32 -left-20 h-96 w-96 rounded-full bg-primary/50 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-20 left-28 h-72 w-72 rounded-full bg-primary/70 blur-2xl" />
 
-          <p className="relative max-w-xs font-display text-3xl font-bold leading-tight text-white">
+          <p className="relative max-w-sm font-display text-4xl font-bold leading-tight text-white lg:text-5xl">
             Accueillez, notez et célébrez la jeunesse du Bénin.
           </p>
 
-          <p className="relative text-xs text-white/50">
+          <p className="relative text-sm text-white/50">
             Journée Internationale de la Jeunesse — 2026
           </p>
         </div>
 
-        <div className="relative flex flex-col justify-center p-8 sm:p-10">
-          <div className="absolute right-6 top-6">
+        <div className="relative flex flex-col justify-center p-10 sm:p-14 lg:p-16">
+          <div className="absolute right-8 top-8">
             <ThemeToggle />
           </div>
 
-          <IconeSunburst className="h-8 w-8 text-primary" />
-          <h1 className="mt-4 font-display text-2xl font-bold text-fg">
+          <IconeSunburst className="h-10 w-10 text-primary" />
+          <h1 className="mt-5 font-display text-3xl font-bold text-fg">
             Connexion
           </h1>
-          <p className="mt-1 text-sm text-fg-muted">
+          <p className="mt-2 text-base text-fg-muted">
             Espace admin, hôtesses ou jury — JIJ 2026.
           </p>
 
-          <form onSubmit={onSubmit} className="mt-6 space-y-4">
+          <form onSubmit={onSubmit} className="mt-8 max-w-md space-y-5">
             <div>
-              <label className="block text-xs text-fg-muted">
+              <label className="block text-sm text-fg-muted">
                 Votre email
               </label>
               <input
@@ -92,12 +92,12 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1.5 w-full rounded-lg border border-border bg-surface px-3.5 py-2.5 text-sm text-fg focus:border-primary focus:outline-none"
+                className="mt-2 w-full rounded-lg border border-border bg-surface px-4 py-3 text-base text-fg focus:border-primary focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs text-fg-muted">
+              <label className="block text-sm text-fg-muted">
                 Mot de passe
               </label>
               <input
@@ -105,7 +105,7 @@ export default function LoginPage() {
                 required
                 value={motDePasse}
                 onChange={(e) => setMotDePasse(e.target.value)}
-                className="mt-1.5 w-full rounded-lg border border-border bg-surface px-3.5 py-2.5 text-sm text-fg focus:border-primary focus:outline-none"
+                className="mt-2 w-full rounded-lg border border-border bg-surface px-4 py-3 text-base text-fg focus:border-primary focus:outline-none"
               />
             </div>
 
@@ -114,13 +114,13 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={chargement}
-              className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-fg transition-colors hover:bg-primary-hover disabled:opacity-60"
+              className="w-full rounded-lg bg-primary px-4 py-3.5 text-base font-semibold text-primary-fg transition-colors hover:bg-primary-hover disabled:opacity-60"
             >
               {chargement ? "Connexion..." : "Se connecter"}
             </button>
           </form>
 
-          <p className="mt-5 text-center text-xs text-fg-muted">
+          <p className="mt-6 text-center text-sm text-fg-muted">
             Pas encore de compte ?{" "}
             <span className="font-medium text-fg">
               Contactez l&apos;administrateur
