@@ -57,7 +57,9 @@ export default async function CampagnesPage({
 
   const { data: historique } = await supabase
     .from("emails_envoyes")
-    .select("id, type, date_envoi, statut_brevo, erreur, participants(nom_complet, email)")
+    .select(
+      "id, type, date_envoi, statut_brevo, erreur, participants(nom_complet, email, statut)"
+    )
     .order("date_envoi", { ascending: false })
     .limit(50);
 
@@ -182,7 +184,24 @@ export default async function CampagnesPage({
                     {new Date(h.date_envoi).toLocaleString("fr-FR")}
                   </td>
                   <td className="px-4 py-2">
-                    {h.statut_brevo === "envoye" ? (
+                    {h.type === "confirmation" ? (
+                      participant?.statut === "confirme" ? (
+                        <span className="rounded-full bg-success-soft px-2 py-0.5 text-xs text-success-text">
+                          Confirmé
+                        </span>
+                      ) : h.statut_brevo === "echec" ? (
+                        <span
+                          title={h.erreur ?? ""}
+                          className="rounded-full bg-error-soft px-2 py-0.5 text-xs text-error-text"
+                        >
+                          Échec d&apos;envoi
+                        </span>
+                      ) : (
+                        <span className="rounded-full bg-error-soft px-2 py-0.5 text-xs text-error-text">
+                          Non confirmé
+                        </span>
+                      )
+                    ) : h.statut_brevo === "envoye" ? (
                       <span className="rounded-full bg-success-soft px-2 py-0.5 text-xs text-success-text">
                         Envoyé
                       </span>
