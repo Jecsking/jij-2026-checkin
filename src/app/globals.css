@@ -17,11 +17,11 @@
   --brand-purple: #8b7cf6;
 
   /* Couleur principale (identité, CTA, actions, éléments actifs) */
-  --primary: #25bfa3;
-  --primary-hover: #20a990;
-  --primary-dark: #168a76;
-  --primary-soft: #d9f7f1;
-  --primary-fg: #04211c;
+  --primary: #f0bf62;
+  --primary-hover: #e3ac45;
+  --primary-dark: #8c6015;
+  --primary-soft: #fdf1d9;
+  --primary-fg: #241a05;
 
   /* Couleurs fonctionnelles (feedback, statuts — distinctes de la marque).
      Les teintes vives (--success etc.) servent aux remplissages/icônes ;
@@ -78,11 +78,11 @@
 
   /* La couleur principale reste identique en sombre : même identité
      de marque dans les deux thèmes. */
-  --primary: #25bfa3;
-  --primary-hover: #20a990;
-  --primary-dark: #168a76;
-  --primary-soft: #10342e;
-  --primary-fg: #04211c;
+  --primary: #f0bf62;
+  --primary-hover: #e3ac45;
+  --primary-dark: #8c6015;
+  --primary-soft: #3d2e10;
+  --primary-fg: #241a05;
 
   /* Fonctionnelles : mêmes teintes, fonds "soft" recalculés pour rester
      sombres et discrets plutôt que des pastels clairs. */
