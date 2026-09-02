@@ -8,7 +8,7 @@ export default async function ClassementPublicPage() {
 
   const { data: parametres } = await supabase
     .from("parametres_evenement")
-    .select("classement_publie")
+    .select("classement_publie, points_max_passage1, points_max_passage2")
     .eq("id", 1)
     .maybeSingle();
 
@@ -33,6 +33,9 @@ export default async function ClassementPublicPage() {
     .from("vue_classement")
     .select("*")
     .order("score_final", { ascending: false, nullsFirst: false });
+
+  const pointsMaxTotal =
+    (parametres?.points_max_passage1 ?? 50) + (parametres?.points_max_passage2 ?? 100);
 
   return (
     <div className="mx-auto min-h-full w-full max-w-xl bg-bg px-6 py-12">
@@ -66,7 +69,9 @@ export default async function ClassementPublicPage() {
             </div>
             <span className="font-display font-bold text-primary">
               {c.score_final !== null ? c.score_final.toFixed(1) : "—"}
-              <span className="ml-1 text-xs font-normal text-fg-muted">/150</span>
+              <span className="ml-1 text-xs font-normal text-fg-muted">
+                /{pointsMaxTotal}
+              </span>
             </span>
           </div>
         ))}

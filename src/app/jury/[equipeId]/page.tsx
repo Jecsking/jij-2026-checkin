@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getUtilisateurConnecte } from "@/lib/auth";
 import { NotationForm } from "./notation-form";
-import { POINTS_MAX_PAR_PASSAGE } from "@/lib/notation";
+import { obtenirPointsMaxParPassage } from "@/lib/notation";
 import type { Passage } from "@/types/database";
 
 export default async function NotationEquipePage({
@@ -38,6 +38,7 @@ export default async function NotationEquipePage({
     .from("criteres_notation")
     .select("*")
     .eq("actif", true)
+    .eq("passage", passage)
     .order("ordre", { ascending: true });
 
   const { data: parametres } = await supabase
@@ -45,6 +46,8 @@ export default async function NotationEquipePage({
     .select("votes_clotures")
     .eq("id", 1)
     .maybeSingle();
+
+  const pointsMaxParPassage = await obtenirPointsMaxParPassage(supabase);
 
   const { data: notes } = jure
     ? await supabase
@@ -82,7 +85,7 @@ export default async function NotationEquipePage({
                 : "border border-border text-fg-muted hover:text-fg"
             }`}
           >
-            Passage {p} (/{POINTS_MAX_PAR_PASSAGE[p]})
+            Passage {p} (/{pointsMaxParPassage[p]})
           </Link>
         ))}
       </div>
@@ -90,7 +93,7 @@ export default async function NotationEquipePage({
       <NotationForm
         equipeId={equipeId}
         passage={passage}
-        maxPoints={POINTS_MAX_PAR_PASSAGE[passage]}
+        maxPoints={pointsMaxParPassage[passage]}
         criteres={criteres ?? []}
         notesExistantes={notesExistantes}
         votesClotures={parametres?.votes_clotures ?? false}

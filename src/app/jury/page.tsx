@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getUtilisateurConnecte } from "@/lib/auth";
+import { obtenirPointsMaxParPassage } from "@/lib/notation";
 
 export default async function JuryHomePage() {
   const connecte = await getUtilisateurConnecte();
@@ -19,9 +20,16 @@ export default async function JuryHomePage() {
 
   const { data: criteresActifs } = await supabase
     .from("criteres_notation")
-    .select("id")
+    .select("id, passage")
     .eq("actif", true);
-  const nbCriteres = criteresActifs?.length ?? 0;
+
+  const nbCriteresParPassage: Record<1 | 2, number> = { 1: 0, 2: 0 };
+  for (const c of criteresActifs ?? []) {
+    if (c.passage === 1 || c.passage === 2) nbCriteresParPassage[c.passage]++;
+  }
+  const nbCriteresTotal = (criteresActifs ?? []).length;
+
+  const pointsMaxParPassage = await obtenirPointsMaxParPassage(supabase);
 
   const { data: notesJure } = jure
     ? await supabase
@@ -49,9 +57,10 @@ export default async function JuryHomePage() {
   const totalCreneaux = equipesListe.length * 2;
   let creneauxNotes = 0;
   for (const equipe of equipesListe) {
-    for (const p of [1, 2]) {
+    for (const p of [1, 2] as const) {
       const nbNotes = notesParEquipePassage.get(`${equipe.id}:${p}`) ?? 0;
-      if (nbCriteres > 0 && nbNotes >= nbCriteres) creneauxNotes++;
+      if (nbCriteresParPassage[p] > 0 && nbNotes >= nbCriteresParPassage[p])
+        creneauxNotes++;
     }
   }
 
@@ -59,9 +68,9 @@ export default async function JuryHomePage() {
     <div>
       <h1 className="text-2xl font-semibold text-fg">Tableau de bord</h1>
       <p className="mt-1 text-sm text-fg-muted">
-        Chaque équipe passe deux fois : notez le passage 1 (/50) puis le
-        passage 2 (/100). Vos notes restent privées jusqu&apos;à la clôture
-        du vote.
+        Chaque équipe passe deux fois : notez le passage 1 (/
+        {pointsMaxParPassage[1]}) puis le passage 2 (/{pointsMaxParPassage[2]}
+        ). Vos notes restent privées jusqu&apos;à la clôture du vote.
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -78,7 +87,7 @@ export default async function JuryHomePage() {
             Critères actifs
           </p>
           <p className="mt-1 font-display text-3xl font-bold text-fg">
-            {nbCriteres}
+            {nbCriteresTotal}
           </p>
         </div>
         <div className="rounded-2xl bg-primary/10 p-5">
@@ -100,9 +109,10 @@ export default async function JuryHomePage() {
           >
             <span className="font-medium text-fg">{equipe.nom}</span>
             <div className="flex gap-2">
-              {[1, 2].map((p) => {
+              {([1, 2] as const).map((p) => {
                 const nbNotes =
                   notesParEquipePassage.get(`${equipe.id}:${p}`) ?? 0;
+                const nbCriteres = nbCriteresParPassage[p];
                 const complet = nbCriteres > 0 && nbNotes >= nbCriteres;
                 return (
                   <Link

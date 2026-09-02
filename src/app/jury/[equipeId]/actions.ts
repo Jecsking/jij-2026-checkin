@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-import { POINTS_MAX_PAR_PASSAGE } from "@/lib/notation";
+import { obtenirPointsMaxParPassage } from "@/lib/notation";
 import type { Passage } from "@/types/database";
 
 export interface ResultatNotation {
@@ -35,7 +35,8 @@ export async function enregistrerNotesAction(
   );
 
   const erreurs: string[] = [];
-  const maxPourPassage = POINTS_MAX_PAR_PASSAGE[passage];
+  const pointsMaxParPassage = await obtenirPointsMaxParPassage(supabase);
+  const maxPourPassage = pointsMaxParPassage[passage];
 
   for (const [cle, valeurBrute] of entrees) {
     const critereId = cle.replace("critere_", "");

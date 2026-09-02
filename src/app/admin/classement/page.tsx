@@ -19,6 +19,9 @@ export default async function ClassementPage() {
     .from("jures")
     .select("id", { count: "exact", head: true });
 
+  const pointsMax1 = parametres?.points_max_passage1 ?? 50;
+  const pointsMax2 = parametres?.points_max_passage2 ?? 100;
+
   return (
     <div>
       <h1 className="text-2xl font-semibold text-fg">
@@ -63,8 +66,8 @@ export default async function ClassementPage() {
       )}
 
       <p className="mt-4 text-xs text-fg-muted">
-        Passage 1 compte pour 50 points, passage 2 pour 100 points. La note
-        finale est leur somme, sur 150.
+        Passage 1 compte pour {pointsMax1} points, passage 2 pour {pointsMax2}{" "}
+        points. La note finale est leur somme, sur {pointsMax1 + pointsMax2}.
       </p>
 
       <div className="mt-2 overflow-x-auto rounded-lg border border-border bg-surface">
@@ -73,9 +76,11 @@ export default async function ClassementPage() {
             <tr>
               <th className="px-4 py-2 text-left font-medium text-fg-muted">#</th>
               <th className="px-4 py-2 text-left font-medium text-fg-muted">Équipe</th>
-              <th className="px-4 py-2 text-left font-medium text-fg-muted">Passage 1 (/50)</th>
-              <th className="px-4 py-2 text-left font-medium text-fg-muted">Passage 2 (/100)</th>
-              <th className="px-4 py-2 text-left font-medium text-fg-muted">Score final (/150)</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Passage 1 (/{pointsMax1})</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">Passage 2 (/{pointsMax2})</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted">
+                Score final (/{pointsMax1 + pointsMax2})
+              </th>
               <th className="px-4 py-2 text-left font-medium text-fg-muted">Jurés ayant noté</th>
             </tr>
           </thead>

@@ -64,6 +64,7 @@ export type CritereNotation = {
   poids: number;
   ordre: number;
   actif: boolean;
+  passage: Passage;
   created_at: string;
 };
 
@@ -92,6 +93,8 @@ export type ParametresEvenement = {
   id: number;
   votes_clotures: boolean;
   classement_publie: boolean;
+  points_max_passage1: number;
+  points_max_passage2: number;
   updated_at: string;
 };
 

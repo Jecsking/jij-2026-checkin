@@ -3,14 +3,35 @@ import {
   creerCritereAction,
   modifierCritereAction,
   supprimerCritereAction,
+  modifierPointsMaxAction,
 } from "./actions";
+import type { Passage } from "@/types/database";
 
-export default async function CriteresPage() {
+export default async function CriteresPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ passage?: string }>;
+}) {
+  const { passage: passageBrut } = await searchParams;
+  const passage: Passage = passageBrut === "2" ? 2 : 1;
+
   const supabase = await createClient();
   const { data: criteres } = await supabase
     .from("criteres_notation")
     .select("*")
+    .eq("passage", passage)
     .order("ordre", { ascending: true });
+
+  const { data: parametres } = await supabase
+    .from("parametres_evenement")
+    .select("points_max_passage1, points_max_passage2")
+    .eq("id", 1)
+    .maybeSingle();
+
+  const pointsMax =
+    passage === 1
+      ? parametres?.points_max_passage1 ?? 50
+      : parametres?.points_max_passage2 ?? 100;
 
   return (
     <div>
@@ -18,14 +39,58 @@ export default async function CriteresPage() {
         Critères de notation
       </h1>
       <p className="mt-1 text-sm text-fg-muted">
-        Le score d&apos;une équipe est la moyenne, entre jurés, de la somme
-        pondérée des critères actifs.
+        Chaque passage a ses propres critères et pondérations. Le score
+        d&apos;une équipe pour un passage est la moyenne, entre jurés, de la
+        somme pondérée de ses critères actifs.
       </p>
+
+      <div className="mt-6 flex gap-2">
+        {([1, 2] as const).map((p) => (
+          <a
+            key={p}
+            href={`/admin/criteres?passage=${p}`}
+            className={`rounded-full px-4 py-2 text-sm font-medium ${
+              p === passage
+                ? "bg-primary text-primary-fg"
+                : "border border-border text-fg-muted hover:text-fg"
+            }`}
+          >
+            Passage {p}
+          </a>
+        ))}
+      </div>
+
+      <form
+        action={modifierPointsMaxAction}
+        className="mt-4 flex flex-wrap items-end gap-3 rounded-lg border border-border bg-surface p-4"
+      >
+        <input type="hidden" name="passage" value={passage} />
+        <div>
+          <label className="block text-xs text-fg-muted">
+            Note totale du passage {passage}
+          </label>
+          <input
+            name="points_max"
+            type="number"
+            step="1"
+            min="1"
+            defaultValue={pointsMax}
+            className="mt-1 w-32 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
+          />
+        </div>
+        <button
+          type="submit"
+          className="rounded-md bg-accent-crimson px-4 py-2 text-sm font-medium text-white hover:bg-accent-crimson/90"
+        >
+          Mettre à jour la note totale
+        </button>
+      </form>
 
       <form
         action={creerCritereAction}
         className="mt-6 flex flex-wrap items-end gap-3 rounded-lg border border-border bg-surface p-4"
       >
+        <input type="hidden" name="passage" value={passage} />
         <div>
           <label className="block text-xs text-fg-muted">Libellé</label>
           <input
@@ -58,7 +123,7 @@ export default async function CriteresPage() {
           type="submit"
           className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover"
         >
-          Ajouter
+          Ajouter au passage {passage}
         </button>
       </form>
 
@@ -143,7 +208,7 @@ export default async function CriteresPage() {
         </table>
         {(criteres ?? []).length === 0 && (
           <p className="p-4 text-sm text-fg-muted">
-            Aucun critère défini pour le moment.
+            Aucun critère défini pour le passage {passage}.
           </p>
         )}
       </div>
