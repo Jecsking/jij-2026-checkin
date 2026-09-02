@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import type { Passage } from "@/types/database";
 
 export interface ResultatNotation {
   erreur?: string;
@@ -10,6 +11,7 @@ export interface ResultatNotation {
 
 export async function enregistrerNotesAction(
   equipeId: string,
+  passage: Passage,
   _prevState: ResultatNotation,
   formData: FormData
 ): Promise<ResultatNotation> {
@@ -36,13 +38,13 @@ export async function enregistrerNotesAction(
   for (const [cle, valeurBrute] of entrees) {
     const critereId = cle.replace("critere_", "");
     const valeur = Number(valeurBrute);
-    if (Number.isNaN(valeur) || valeur < 0 || valeur > 10) continue;
+    if (Number.isNaN(valeur) || valeur < 0 || valeur > 100) continue;
 
     const { error } = await supabase
       .from("notes")
       .upsert(
-        { jure_id: jure.id, equipe_id: equipeId, critere_id: critereId, valeur },
-        { onConflict: "jure_id,equipe_id,critere_id" }
+        { jure_id: jure.id, equipe_id: equipeId, critere_id: critereId, passage, valeur },
+        { onConflict: "jure_id,equipe_id,critere_id,passage" }
       );
 
     if (error) erreurs.push(error.message);

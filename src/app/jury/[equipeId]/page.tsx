@@ -3,13 +3,21 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getUtilisateurConnecte } from "@/lib/auth";
 import { NotationForm } from "./notation-form";
+import type { Passage } from "@/types/database";
+
+const POINTS_MAX_PAR_PASSAGE: Record<Passage, number> = { 1: 50, 2: 100 };
 
 export default async function NotationEquipePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ equipeId: string }>;
+  searchParams: Promise<{ passage?: string }>;
 }) {
   const { equipeId } = await params;
+  const { passage: passageBrut } = await searchParams;
+  const passage: Passage = passageBrut === "2" ? 2 : 1;
+
   const connecte = await getUtilisateurConnecte();
   const supabase = await createClient();
 
@@ -45,6 +53,7 @@ export default async function NotationEquipePage({
         .select("critere_id, valeur")
         .eq("jure_id", jure.id)
         .eq("equipe_id", equipeId)
+        .eq("passage", passage)
     : { data: [] };
 
   const notesExistantes = Object.fromEntries(
@@ -63,8 +72,25 @@ export default async function NotationEquipePage({
         <p className="mt-1 text-sm text-fg-muted">{equipe.description}</p>
       )}
 
+      <div className="mt-4 flex gap-2">
+        {([1, 2] as const).map((p) => (
+          <Link
+            key={p}
+            href={`/jury/${equipeId}?passage=${p}`}
+            className={`rounded-full px-3 py-1.5 text-sm font-medium ${
+              p === passage
+                ? "bg-primary text-primary-fg"
+                : "border border-border text-fg-muted hover:text-fg"
+            }`}
+          >
+            Passage {p} (/{POINTS_MAX_PAR_PASSAGE[p]})
+          </Link>
+        ))}
+      </div>
+
       <NotationForm
         equipeId={equipeId}
+        passage={passage}
         criteres={criteres ?? []}
         notesExistantes={notesExistantes}
         votesClotures={parametres?.votes_clotures ?? false}

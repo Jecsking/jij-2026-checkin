@@ -65,7 +65,8 @@ export default async function ClassementPublicPage() {
               <span className="font-medium text-fg">{c.nom}</span>
             </div>
             <span className="font-display font-bold text-primary">
-              {c.score_final !== null ? c.score_final.toFixed(2) : "—"}
+              {c.score_final !== null ? c.score_final.toFixed(1) : "—"}
+              <span className="ml-1 text-xs font-normal text-fg-muted">/150</span>
             </span>
           </div>
         ))}

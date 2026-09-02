@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { enregistrerNotesAction, type ResultatNotation } from "./actions";
+import type { Passage } from "@/types/database";
 
 const ETAT_INITIAL: ResultatNotation = {};
 
@@ -14,16 +15,18 @@ interface Critere {
 
 export function NotationForm({
   equipeId,
+  passage,
   criteres,
   notesExistantes,
   votesClotures,
 }: {
   equipeId: string;
+  passage: Passage;
   criteres: Critere[];
   notesExistantes: Record<string, number>;
   votesClotures: boolean;
 }) {
-  const action = enregistrerNotesAction.bind(null, equipeId);
+  const action = enregistrerNotesAction.bind(null, equipeId, passage);
   const [etat, dispatch, enCours] = useActionState(action, ETAT_INITIAL);
 
   return (
@@ -48,10 +51,10 @@ export function NotationForm({
             type="range"
             name={`critere_${critere.id}`}
             min={0}
-            max={10}
-            step={0.5}
+            max={100}
+            step={1}
             disabled={votesClotures}
-            defaultValue={notesExistantes[critere.id] ?? 5}
+            defaultValue={notesExistantes[critere.id] ?? 50}
             className="mt-3 w-full accent-primary"
             onInput={(e) => {
               const output = e.currentTarget.nextElementSibling;
@@ -59,7 +62,7 @@ export function NotationForm({
             }}
           />
           <output className="mt-1 block text-sm font-semibold text-primary">
-            {notesExistantes[critere.id] ?? 5}
+            {notesExistantes[critere.id] ?? 50}
           </output>
         </div>
       ))}
@@ -82,7 +85,7 @@ export function NotationForm({
           disabled={enCours}
           className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-fg hover:bg-primary-hover disabled:opacity-60"
         >
-          {enCours ? "Enregistrement..." : "Enregistrer mes notes"}
+          {enCours ? "Enregistrement..." : `Enregistrer mes notes — Passage ${passage}`}
         </button>
       )}
 

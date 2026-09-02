@@ -75,11 +75,14 @@ export type Jure = {
   created_at: string;
 };
 
+export type Passage = 1 | 2;
+
 export type Note = {
   id: string;
   jure_id: string;
   equipe_id: string;
   critere_id: string;
+  passage: Passage;
   valeur: number;
   created_at: string;
   updated_at: string;
@@ -103,6 +106,10 @@ export type ProfilUtilisateur = {
 export type VueClassement = {
   equipe_id: string;
   nom: string;
+  score_passage1: number | null;
+  nb_jures_passage1: number;
+  score_passage2: number | null;
+  nb_jures_passage2: number;
   score_final: number | null;
   nb_jures_ayant_note: number;
 };
@@ -175,6 +182,7 @@ export type Database = {
           jure_id: string;
           equipe_id: string;
           critere_id: string;
+          passage: Passage;
           valeur: number;
         };
         Update: Partial<Note>;

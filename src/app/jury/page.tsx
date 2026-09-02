@@ -24,12 +24,16 @@ export default async function JuryHomePage() {
   const nbCriteres = criteresActifs?.length ?? 0;
 
   const { data: notesJure } = jure
-    ? await supabase.from("notes").select("equipe_id").eq("jure_id", jure.id)
+    ? await supabase
+        .from("notes")
+        .select("equipe_id, passage")
+        .eq("jure_id", jure.id)
     : { data: [] };
 
-  const notesParEquipe = new Map<string, number>();
+  const notesParEquipePassage = new Map<string, number>();
   for (const n of notesJure ?? []) {
-    notesParEquipe.set(n.equipe_id, (notesParEquipe.get(n.equipe_id) ?? 0) + 1);
+    const cle = `${n.equipe_id}:${n.passage}`;
+    notesParEquipePassage.set(cle, (notesParEquipePassage.get(cle) ?? 0) + 1);
   }
 
   if (!jure) {
@@ -42,16 +46,22 @@ export default async function JuryHomePage() {
   }
 
   const equipesListe = equipes ?? [];
-  const nbEquipesNotees = equipesListe.filter((e) => {
-    const nbNotes = notesParEquipe.get(e.id) ?? 0;
-    return nbCriteres > 0 && nbNotes >= nbCriteres;
-  }).length;
+  const totalCreneaux = equipesListe.length * 2;
+  let creneauxNotes = 0;
+  for (const equipe of equipesListe) {
+    for (const p of [1, 2]) {
+      const nbNotes = notesParEquipePassage.get(`${equipe.id}:${p}`) ?? 0;
+      if (nbCriteres > 0 && nbNotes >= nbCriteres) creneauxNotes++;
+    }
+  }
 
   return (
     <div>
       <h1 className="text-2xl font-semibold text-fg">Tableau de bord</h1>
       <p className="mt-1 text-sm text-fg-muted">
-        Vos notes restent privées jusqu&apos;à la clôture du vote.
+        Chaque équipe passe deux fois : notez le passage 1 (/50) puis le
+        passage 2 (/100). Vos notes restent privées jusqu&apos;à la clôture
+        du vote.
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -73,39 +83,45 @@ export default async function JuryHomePage() {
         </div>
         <div className="rounded-2xl bg-primary/10 p-5">
           <p className="text-xs font-semibold uppercase tracking-wide text-fg-muted">
-            Notées par vous
+            Passages notés par vous
           </p>
           <p className="mt-1 font-display text-3xl font-bold text-primary-dark">
-            {nbEquipesNotees} / {equipesListe.length}
+            {creneauxNotes} / {totalCreneaux}
           </p>
         </div>
       </div>
 
       <h2 className="mt-8 text-lg font-semibold text-fg">Équipes à noter</h2>
       <div className="mt-4 max-w-2xl space-y-2">
-        {(equipes ?? []).map((equipe) => {
-          const nbNotes = notesParEquipe.get(equipe.id) ?? 0;
-          const complet = nbCriteres > 0 && nbNotes >= nbCriteres;
-          return (
-            <Link
-              key={equipe.id}
-              href={`/jury/${equipe.id}`}
-              className="flex items-center justify-between rounded-lg border border-border bg-surface p-4 hover:border-accent-gold"
-            >
-              <span className="font-medium text-fg">{equipe.nom}</span>
-              <span
-                className={`rounded-full px-2 py-0.5 text-xs ${
-                  complet
-                    ? "bg-success-soft text-success-text"
-                    : "bg-warning-soft text-fg"
-                }`}
-              >
-                {complet ? "Noté" : `${nbNotes}/${nbCriteres}`}
-              </span>
-            </Link>
-          );
-        })}
-        {(equipes ?? []).length === 0 && (
+        {equipesListe.map((equipe) => (
+          <div
+            key={equipe.id}
+            className="flex items-center justify-between rounded-lg border border-border bg-surface p-4"
+          >
+            <span className="font-medium text-fg">{equipe.nom}</span>
+            <div className="flex gap-2">
+              {[1, 2].map((p) => {
+                const nbNotes =
+                  notesParEquipePassage.get(`${equipe.id}:${p}`) ?? 0;
+                const complet = nbCriteres > 0 && nbNotes >= nbCriteres;
+                return (
+                  <Link
+                    key={p}
+                    href={`/jury/${equipe.id}?passage=${p}`}
+                    className={`rounded-full px-2.5 py-1 text-xs font-medium hover:opacity-80 ${
+                      complet
+                        ? "bg-success-soft text-success-text"
+                        : "bg-warning-soft text-fg"
+                    }`}
+                  >
+                    P{p} : {complet ? "Noté" : `${nbNotes}/${nbCriteres}`}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+        {equipesListe.length === 0 && (
           <p className="text-sm text-fg-muted">
             Aucune équipe n&apos;est encore enregistrée.
           </p>
