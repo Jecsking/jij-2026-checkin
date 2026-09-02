@@ -46,7 +46,7 @@ export function EnvoyerCampagneForm({
       </button>
 
       {etat.erreur && (
-        <p className="rounded-md bg-danger-bg p-3 text-sm text-danger">
+        <p className="rounded-md bg-error-soft p-3 text-sm text-error-text">
           {etat.erreur}
         </p>
       )}
@@ -57,7 +57,7 @@ export function EnvoyerCampagneForm({
             {etat.envoyes} email(s) envoyé(s), {etat.echecs} échec(s).
           </p>
           {etat.erreursDetail && etat.erreursDetail.length > 0 && (
-            <ul className="mt-2 list-disc pl-5 text-danger">
+            <ul className="mt-2 list-disc pl-5 text-error-text">
               {etat.erreursDetail.map((e) => (
                 <li key={e}>{e}</li>
               ))}

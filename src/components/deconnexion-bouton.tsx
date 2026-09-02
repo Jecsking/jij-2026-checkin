@@ -17,7 +17,7 @@ export function DeconnexionBouton({ className = "" }: { className?: string }) {
   return (
     <button
       onClick={seDeconnecter}
-      className={`flex items-center gap-3 rounded-lg text-sm font-medium transition-colors hover:text-danger ${className}`}
+      className={`flex items-center gap-3 rounded-lg text-sm font-medium transition-colors hover:text-error-text ${className}`}
     >
       <IconeDeconnexion className="h-[18px] w-[18px] shrink-0" />
       Se déconnecter

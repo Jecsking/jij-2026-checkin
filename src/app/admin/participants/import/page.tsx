@@ -53,7 +53,7 @@ export default function ImportParticipantsPage() {
       </form>
 
       {etat.erreur && (
-        <p className="mt-4 rounded-md bg-danger-bg p-3 text-sm text-danger">
+        <p className="mt-4 rounded-md bg-error-soft p-3 text-sm text-error-text">
           {etat.erreur}
         </p>
       )}
@@ -66,10 +66,10 @@ export default function ImportParticipantsPage() {
           </p>
           {etat.erreursLignes && etat.erreursLignes.length > 0 && (
             <div className="mt-2">
-              <p className="font-medium text-danger">
+              <p className="font-medium text-error-text">
                 Erreurs sur certaines lignes :
               </p>
-              <ul className="mt-1 list-disc pl-5 text-danger">
+              <ul className="mt-1 list-disc pl-5 text-error-text">
                 {etat.erreursLignes.map((e) => (
                   <li key={e}>{e}</li>
                 ))}

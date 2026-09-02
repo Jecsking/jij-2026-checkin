@@ -34,7 +34,7 @@ export default async function JuryHomePage() {
 
   if (!jure) {
     return (
-      <p className="text-sm text-danger">
+      <p className="text-sm text-error-text">
         Votre compte n&apos;est associé à aucun profil juré. Contactez
         l&apos;organisation.
       </p>
@@ -63,8 +63,8 @@ export default async function JuryHomePage() {
               <span
                 className={`rounded-full px-2 py-0.5 text-xs ${
                   complet
-                    ? "bg-success-bg text-success"
-                    : "bg-warning-bg text-fg"
+                    ? "bg-success-soft text-success-text"
+                    : "bg-warning-soft text-fg"
                 }`}
               >
                 {complet ? "Noté" : `${nbNotes}/${nbCriteres}`}

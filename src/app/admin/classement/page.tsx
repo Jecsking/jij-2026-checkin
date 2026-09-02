@@ -33,7 +33,7 @@ export default async function ClassementPage() {
             value={parametres?.votes_clotures ? "on" : "off"}
             className={`rounded-md px-4 py-2 text-sm font-medium ${
               parametres?.votes_clotures
-                ? "bg-warning-bg text-fg"
+                ? "bg-warning-soft text-fg"
                 : "bg-primary text-primary-fg"
             }`}
           >

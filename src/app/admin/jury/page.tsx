@@ -44,7 +44,7 @@ export default async function JuryPage() {
                     />
                     <button
                       type="submit"
-                      className="text-xs text-danger hover:underline"
+                      className="text-xs text-error-text hover:underline"
                     >
                       Retirer
                     </button>

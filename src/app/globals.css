@@ -3,60 +3,102 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Couleurs de marque JIJ 2026 (extraites du logo officiel) */
+  /* ============================================================
+     Couleurs de marque JIJ 2026 (identité existante, conservée)
+     Rôle : secondaire / catégoriel / décoratif (cartes, graphiques,
+     badges liés à l'événement) — plus la couleur d'action principale.
+     ============================================================ */
   --brand-navy: #1354a2;
   --brand-navy-deep: #0d2a52;
   --brand-blue: #1980c3;
   --brand-gold: #f9d622;
   --brand-crimson: #d10f42;
   --brand-green: #0c8756;
+  --brand-purple: #8b7cf6;
 
-  /* Tokens sémantiques — thème clair */
-  --bg: #f2f5fa;
+  /* Couleur principale (identité, CTA, actions, éléments actifs) */
+  --primary: #25bfa3;
+  --primary-hover: #20a990;
+  --primary-dark: #168a76;
+  --primary-soft: #d9f7f1;
+  --primary-fg: #04211c;
+
+  /* Couleurs fonctionnelles (feedback, statuts — distinctes de la marque).
+     Les teintes vives (--success etc.) servent aux remplissages/icônes ;
+     les variantes -text sont assombries pour rester lisibles en texte sur
+     fond clair (les teintes vives seules échouent le contraste AA). */
+  --success: #35c98a;
+  --success-soft: #ddf8ed;
+  --success-text: #14754f;
+  --warning: #f2b84b;
+  --warning-soft: #fff3d6;
+  --warning-text: #8a5c12;
+  --error: #e86666;
+  --error-soft: #fce3e3;
+  --error-text: #a83232;
+  --info: #5b9eea;
+  --info-soft: #e4f0fc;
+  --info-text: #2a5fa0;
+
+  /* Neutres — thème clair (véritable interface claire, pas une simple
+     inversion du sombre) */
+  --bg: #f7faf9;
+  --bg-secondary: #eff5f3;
   --surface: #ffffff;
-  --surface-hover: #f8fafc;
-  --sidebar: #0d2a52;
-  --sidebar-hover: #163f74;
-  --sidebar-fg: #e7edf6;
-  --sidebar-fg-muted: #9db4d4;
-  --border: #e2e8f0;
-  --fg: #0f172a;
-  --fg-muted: #64748b;
-  --primary: #1354a2;
-  --primary-hover: #0d3f80;
-  --primary-fg: #ffffff;
-  --accent-gold: #f9d622;
-  --accent-crimson: #d10f42;
-  --accent-green: #0c8756;
-  --success: #0c8756;
-  --success-bg: #e5f6ee;
-  --danger: #d10f42;
-  --danger-bg: #fce8ed;
-  --warning-bg: #fdf6d6;
+  --surface-elevated: #ffffff;
+  --surface-hover: #f1f8f6;
+  --border: #dce8e5;
+  --border-subtle: #e8f0ee;
+  --fg: #10201d;
+  --fg-secondary: #52645f;
+  --fg-muted: #7c8d88;
+
+  /* Sidebar : toujours sombre, dans les deux thèmes */
+  --sidebar: #001d19;
+  --sidebar-elevated: #0b2621;
+  --sidebar-hover: #144039;
+  --sidebar-fg: #f2f8f6;
+  --sidebar-fg-muted: #718983;
 }
 
 .dark {
-  --bg: #0a0f1c;
-  --surface: #121a2c;
-  --surface-hover: #182338;
-  --sidebar: #070d1a;
-  --sidebar-hover: #101b30;
-  --sidebar-fg: #e7edf6;
-  --sidebar-fg-muted: #7f93b5;
-  --border: #223049;
-  --fg: #e7ecf5;
-  --fg-muted: #93a3bd;
-  --primary: #3b8fdc;
-  --primary-hover: #5aa3e6;
-  --primary-fg: #071120;
-  --accent-gold: #f9d622;
-  --accent-crimson: #f1436b;
-  --accent-green: #22b17f;
-  --success: #22b17f;
-  --success-bg: #0f2c22;
-  --danger: #f1436b;
-  --danger-bg: #35131d;
-  --warning-bg: #2c2712;
+  /* Neutres — thème sombre premium (fond profond, jamais noir pur,
+     surfaces différenciées pour créer de la profondeur) */
+  --bg: #001d19;
+  --bg-secondary: #062823;
+  --surface: #0b2621;
+  --surface-elevated: #10342e;
+  --surface-hover: #144039;
+  --border: #1a4640;
+  --border-subtle: #123832;
+  --fg: #f2f8f6;
+  --fg-secondary: #b7c9c5;
+  --fg-muted: #718983;
+
+  /* La couleur principale reste identique en sombre : même identité
+     de marque dans les deux thèmes. */
+  --primary: #25bfa3;
+  --primary-hover: #20a990;
+  --primary-dark: #168a76;
+  --primary-soft: #10342e;
+  --primary-fg: #04211c;
+
+  /* Fonctionnelles : mêmes teintes, fonds "soft" recalculés pour rester
+     sombres et discrets plutôt que des pastels clairs. */
+  --success: #35c98a;
+  --success-soft: #103a2c;
+  --success-text: #35c98a;
+  --warning: #f2b84b;
+  --warning-soft: #3d2e12;
+  --warning-text: #f2b84b;
+  --error: #e86666;
+  --error-soft: #3b1818;
+  --error-text: #e86666;
+  --info: #5b9eea;
+  --info-soft: #142a3d;
+  --info-text: #5b9eea;
+
+  /* Sidebar identique au thème clair : elle reste sombre dans les deux cas. */
 }
 
 @theme inline {
@@ -66,27 +108,52 @@
   --color-brand-gold: var(--brand-gold);
   --color-brand-crimson: var(--brand-crimson);
   --color-brand-green: var(--brand-green);
+  --color-brand-purple: var(--brand-purple);
+
   --color-bg: var(--bg);
+  --color-bg-secondary: var(--bg-secondary);
   --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
   --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-fg: var(--fg);
+  --color-fg-secondary: var(--fg-secondary);
+  --color-fg-muted: var(--fg-muted);
+
   --color-sidebar: var(--sidebar);
+  --color-sidebar-elevated: var(--sidebar-elevated);
   --color-sidebar-hover: var(--sidebar-hover);
   --color-sidebar-fg: var(--sidebar-fg);
   --color-sidebar-fg-muted: var(--sidebar-fg-muted);
-  --color-border: var(--border);
-  --color-fg: var(--fg);
-  --color-fg-muted: var(--fg-muted);
+
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-soft: var(--primary-soft);
   --color-primary-fg: var(--primary-fg);
-  --color-accent-gold: var(--accent-gold);
-  --color-accent-crimson: var(--accent-crimson);
-  --color-accent-green: var(--accent-green);
+
+  /* Accents de marque existants — utilisés comme secondaires/catégoriels */
+  --color-accent-gold: var(--brand-gold);
+  --color-accent-crimson: var(--brand-crimson);
+  --color-accent-green: var(--brand-green);
+  --color-accent-navy: var(--brand-navy);
+  --color-accent-purple: var(--brand-purple);
+
+  /* Fonctionnelles */
   --color-success: var(--success);
-  --color-success-bg: var(--success-bg);
-  --color-danger: var(--danger);
-  --color-danger-bg: var(--danger-bg);
-  --color-warning-bg: var(--warning-bg);
+  --color-success-soft: var(--success-soft);
+  --color-success-text: var(--success-text);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-text: var(--warning-text);
+  --color-error: var(--error);
+  --color-error-soft: var(--error-soft);
+  --color-error-text: var(--error-text);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-info-text: var(--info-text);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-display);
@@ -98,6 +165,6 @@ body {
 }
 
 ::selection {
-  background: var(--brand-gold);
-  color: var(--brand-navy-deep);
+  background: var(--primary-soft);
+  color: var(--primary-dark);
 }

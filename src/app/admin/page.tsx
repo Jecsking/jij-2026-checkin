@@ -83,25 +83,25 @@ export default async function AdminDashboardPage() {
       label: "Email envoyé, sans réponse",
       valeur: emailEnvoye,
       icone: IconeCampagnes,
-      couleur: "gold",
+      couleur: "warning",
     },
     {
       label: "En attente d'email",
       valeur: inscrits,
       icone: IconeCampagnes,
-      couleur: "crimson",
+      couleur: "info",
     },
     {
       label: "Présence confirmée",
       valeur: confirmes,
       icone: IconeCheckin,
-      couleur: "green",
+      couleur: "success",
     },
     {
       label: "Présents — Jour 1",
       valeur: p1,
       icone: IconeCheckin,
-      couleur: "primary",
+      couleur: "purple",
     },
     {
       label: "Présents — Jour 2",
@@ -111,11 +111,46 @@ export default async function AdminDashboardPage() {
     },
   ];
 
-  const STYLES_COULEUR: Record<string, { bg: string; badge: string; texte: string }> = {
-    primary: { bg: "bg-primary/10", badge: "bg-primary", texte: "text-primary" },
-    gold: { bg: "bg-accent-gold/15", badge: "bg-accent-gold", texte: "text-accent-gold" },
-    crimson: { bg: "bg-accent-crimson/10", badge: "bg-accent-crimson", texte: "text-accent-crimson" },
-    green: { bg: "bg-accent-green/10", badge: "bg-accent-green", texte: "text-accent-green" },
+  const STYLES_COULEUR: Record<
+    string,
+    { bg: string; badge: string; icone: string; texte: string }
+  > = {
+    primary: {
+      bg: "bg-primary/10",
+      badge: "bg-primary",
+      icone: "text-brand-navy-deep",
+      texte: "text-primary-dark",
+    },
+    warning: {
+      bg: "bg-warning/15",
+      badge: "bg-warning",
+      icone: "text-brand-navy-deep",
+      texte: "text-warning-text",
+    },
+    info: {
+      bg: "bg-info/10",
+      badge: "bg-info",
+      icone: "text-brand-navy-deep",
+      texte: "text-info-text",
+    },
+    success: {
+      bg: "bg-success/10",
+      badge: "bg-success",
+      icone: "text-brand-navy-deep",
+      texte: "text-success-text",
+    },
+    purple: {
+      bg: "bg-accent-purple/10",
+      badge: "bg-accent-purple",
+      icone: "text-white",
+      texte: "text-accent-purple",
+    },
+    green: {
+      bg: "bg-accent-green/10",
+      badge: "bg-accent-green",
+      icone: "text-white",
+      texte: "text-accent-green",
+    },
   };
 
   return (
@@ -160,7 +195,7 @@ export default async function AdminDashboardPage() {
               <div
                 className={`flex h-10 w-10 items-center justify-center rounded-full ${style.badge}`}
               >
-                <Icone className="h-5 w-5 text-white" />
+                <Icone className={`h-5 w-5 ${style.icone}`} />
               </div>
               <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-fg-muted">
                 {carte.label}
@@ -182,9 +217,9 @@ export default async function AdminDashboardPage() {
             <DonutChart
               total={total}
               segments={[
-                { valeur: inscrits, couleur: "var(--accent-crimson)" },
-                { valeur: emailEnvoye, couleur: "var(--accent-gold)" },
-                { valeur: confirmes, couleur: "var(--accent-green)" },
+                { valeur: inscrits, couleur: "var(--info)" },
+                { valeur: emailEnvoye, couleur: "var(--warning)" },
+                { valeur: confirmes, couleur: "var(--success)" },
               ]}
             />
             <div className="space-y-2 text-sm">
@@ -192,17 +227,17 @@ export default async function AdminDashboardPage() {
               <p className="-mt-1 text-xs text-fg-muted">total</p>
               <div className="mt-3 space-y-2">
                 <div className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-accent-crimson" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-info" />
                   <span className="text-fg-muted">En attente</span>
                   <span className="ml-auto font-medium text-fg">{inscrits}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-accent-gold" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-warning" />
                   <span className="text-fg-muted">Email envoyé</span>
                   <span className="ml-auto font-medium text-fg">{emailEnvoye}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-accent-green" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-success" />
                   <span className="text-fg-muted">Confirmé</span>
                   <span className="ml-auto font-medium text-fg">{confirmes}</span>
                 </div>
@@ -230,7 +265,7 @@ export default async function AdminDashboardPage() {
               </div>
               <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-border">
                 <div
-                  className="h-full rounded-full bg-primary"
+                  className="h-full rounded-full bg-accent-purple"
                   style={{
                     width: `${confirmes > 0 ? Math.min((p1 / confirmes) * 100, 100) : 0}%`,
                   }}

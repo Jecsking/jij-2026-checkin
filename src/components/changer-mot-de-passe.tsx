@@ -52,7 +52,7 @@ export function ChangerMotDePasse() {
       >
         Mettre à jour
       </button>
-      {erreur && <p className="text-sm text-danger">{erreur}</p>}
+      {erreur && <p className="text-sm text-error-text">{erreur}</p>}
       {message && <p className="text-sm text-primary">{message}</p>}
     </form>
   );

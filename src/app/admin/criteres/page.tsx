@@ -118,7 +118,7 @@ export default async function CriteresPage() {
                       value={c.actif ? "off" : "on"}
                       className={`rounded-full px-2 py-0.5 text-xs ${
                         c.actif
-                          ? "bg-success-bg text-success"
+                          ? "bg-success-soft text-success-text"
                           : "bg-surface-hover text-fg-muted"
                       }`}
                     >
@@ -131,7 +131,7 @@ export default async function CriteresPage() {
                     <input type="hidden" name="id" value={c.id} />
                     <button
                       type="submit"
-                      className="text-xs text-danger hover:underline"
+                      className="text-xs text-error-text hover:underline"
                     >
                       Supprimer
                     </button>

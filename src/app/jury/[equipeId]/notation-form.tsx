@@ -71,7 +71,7 @@ export function NotationForm({
       )}
 
       {votesClotures && (
-        <p className="rounded-md bg-warning-bg p-3 text-sm text-fg">
+        <p className="rounded-md bg-warning-soft p-3 text-sm text-fg">
           Le vote est clôturé, les notes ne peuvent plus être modifiées.
         </p>
       )}
@@ -86,7 +86,7 @@ export function NotationForm({
         </button>
       )}
 
-      {etat.erreur && <p className="text-sm text-danger">{etat.erreur}</p>}
+      {etat.erreur && <p className="text-sm text-error-text">{etat.erreur}</p>}
       {etat.succes && (
         <p className="text-sm text-primary">Notes enregistrées.</p>
       )}

@@ -171,13 +171,13 @@ export default async function CampagnesPage({
                   </td>
                   <td className="px-4 py-2">
                     {h.statut_brevo === "envoye" ? (
-                      <span className="rounded-full bg-success-bg px-2 py-0.5 text-xs text-success">
+                      <span className="rounded-full bg-success-soft px-2 py-0.5 text-xs text-success-text">
                         Envoyé
                       </span>
                     ) : (
                       <span
                         title={h.erreur ?? ""}
-                        className="rounded-full bg-danger-bg px-2 py-0.5 text-xs text-danger"
+                        className="rounded-full bg-error-soft px-2 py-0.5 text-xs text-error-text"
                       >
                         Échec
                       </span>

@@ -64,7 +64,7 @@ export default async function EquipesPage() {
                 <input type="hidden" name="id" value={equipe.id} />
                 <button
                   type="submit"
-                  className="text-sm text-danger hover:underline"
+                  className="text-sm text-error-text hover:underline"
                 >
                   Supprimer l&apos;équipe
                 </button>
@@ -91,7 +91,7 @@ export default async function EquipesPage() {
                       <input type="hidden" name="id" value={membre.id} />
                       <button
                         type="submit"
-                        className="text-xs text-danger hover:underline"
+                        className="text-xs text-error-text hover:underline"
                       >
                         Retirer
                       </button>

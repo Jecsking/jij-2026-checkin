@@ -40,7 +40,7 @@ export default function ParametresPage() {
                   className={
                     definie
                       ? "text-primary"
-                      : "font-medium text-danger"
+                      : "font-medium text-error-text"
                   }
                 >
                   {definie ? "Configurée" : "Manquante"}

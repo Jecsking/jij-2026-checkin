@@ -38,7 +38,7 @@ export function CreerJureForm() {
         {enCours ? "Création..." : "Créer le compte jury"}
       </button>
       {etat.erreur && (
-        <p className="w-full text-sm text-danger">{etat.erreur}</p>
+        <p className="w-full text-sm text-error-text">{etat.erreur}</p>
       )}
       {etat.succes && (
         <p className="w-full text-sm text-primary">
