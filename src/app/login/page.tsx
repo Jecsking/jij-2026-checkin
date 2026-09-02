@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -56,17 +57,14 @@ export default function LoginPage() {
   return (
     <div className="flex flex-1 items-center justify-center bg-bg p-4 md:p-10">
       <div className="grid w-full max-w-6xl overflow-hidden rounded-3xl border border-border bg-surface shadow-xl md:grid-cols-2 md:min-h-[640px]">
-        <div className="relative hidden flex-col justify-between overflow-hidden bg-brand-navy-deep p-14 md:flex">
-          <div className="pointer-events-none absolute -bottom-32 -left-20 h-96 w-96 rounded-full bg-primary/50 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 left-28 h-72 w-72 rounded-full bg-primary/70 blur-2xl" />
-
-          <p className="relative max-w-sm font-display text-4xl font-bold leading-tight text-white lg:text-5xl">
-            Accueillez, notez et célébrez la jeunesse du Bénin.
-          </p>
-
-          <p className="relative text-sm text-white/50">
-            Journée Internationale de la Jeunesse — 2026
-          </p>
+        <div className="relative hidden overflow-hidden bg-brand-navy-deep md:block">
+          <Image
+            src="/logo/login-hero.png"
+            alt="Journée Internationale de la Jeunesse — 2026"
+            fill
+            priority
+            className="object-cover"
+          />
         </div>
 
         <div className="relative flex flex-col justify-center p-10 sm:p-14 lg:p-16">
