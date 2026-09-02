@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import type { Participant, Participation, StatutParticipant } from "@/types/database";
+import { supprimerParticipantAction } from "./actions";
+import { ConfirmSubmitButton } from "@/components/confirm-submit-button";
 
 const PAR_PAGE = 50;
 
@@ -194,6 +196,7 @@ export default async function ParticipantsPage({
               <th className="px-4 py-2 text-left font-medium text-fg-muted">Participation</th>
               <th className="px-4 py-2 text-left font-medium text-fg-muted">Statut</th>
               <th className="px-4 py-2 text-left font-medium text-fg-muted">Présence</th>
+              <th className="px-4 py-2 text-left font-medium text-fg-muted"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
@@ -218,6 +221,17 @@ export default async function ParticipantsPage({
                   {p.date_checkin_jour1 && "J1 ✓ "}
                   {p.date_checkin_jour2 && "J2 ✓"}
                   {!p.date_checkin_jour1 && !p.date_checkin_jour2 && "—"}
+                </td>
+                <td className="px-4 py-2">
+                  <form action={supprimerParticipantAction}>
+                    <input type="hidden" name="id" value={p.id} />
+                    <ConfirmSubmitButton
+                      confirmMessage={`Supprimer définitivement ${p.nom_complet} ? Son historique d'emails sera aussi supprimé. Cette action est irréversible.`}
+                      className="text-xs text-error-text hover:underline"
+                    >
+                      Supprimer
+                    </ConfirmSubmitButton>
+                  </form>
                 </td>
               </tr>
             ))}

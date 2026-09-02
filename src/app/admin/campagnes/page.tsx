@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { SegmentCount } from "./segment-count";
 import { EnvoyerCampagneForm } from "./envoyer-campagne-form";
+import { EnvoyerUnePersonneForm } from "./envoyer-une-personne-form";
 
 const LIBELLES_PARTICIPATION: Record<string, string> = {
   jour1: "Jour 1 uniquement",
@@ -54,8 +55,13 @@ export default async function CampagnesPage({
     .order("date_envoi", { ascending: false })
     .limit(50);
 
+  const { data: tousParticipants } = await supabase
+    .from("participants")
+    .select("id, nom_complet, email")
+    .order("nom_complet", { ascending: true });
+
   return (
-    <div className="max-w-3xl">
+    <div>
       <h1 className="text-2xl font-semibold text-fg">
         Campagnes de confirmation
       </h1>
@@ -139,6 +145,17 @@ export default async function CampagnesPage({
           statut={params.statut}
           ville={params.ville}
         />
+      </div>
+
+      <div className="mt-6 rounded-lg border border-border bg-surface p-4">
+        <h2 className="text-sm font-semibold text-fg">
+          Envoyer à une seule personne
+        </h2>
+        <p className="mt-1 text-sm text-fg-muted">
+          Tapez un nom pour cibler une seule personne, indépendamment du
+          segment ci-dessus.
+        </p>
+        <EnvoyerUnePersonneForm participants={tousParticipants ?? []} />
       </div>
 
       <h2 className="mt-10 text-lg font-semibold text-fg">

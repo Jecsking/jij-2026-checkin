@@ -13,7 +13,7 @@ export default async function CriteresPage() {
     .order("ordre", { ascending: true });
 
   return (
-    <div className="max-w-2xl">
+    <div>
       <h1 className="text-2xl font-semibold text-fg">
         Critères de notation
       </h1>

@@ -53,3 +53,19 @@ export async function ajouterInviteAction(
 
   return { succes: true };
 }
+
+export async function supprimerParticipantAction(formData: FormData) {
+  const id = formData.get("id") as string;
+  if (!id) return;
+
+  const supabase = await createClient();
+  // emails_envoyes.participant_id est en "on delete cascade" : supprimer le
+  // participant supprime automatiquement tout son historique d'envoi
+  // (confirmation, QR code).
+  await supabase.from("participants").delete().eq("id", id);
+
+  revalidatePath("/admin/participants");
+  revalidatePath("/admin");
+  revalidatePath("/admin/checkin");
+  revalidatePath("/admin/campagnes");
+}

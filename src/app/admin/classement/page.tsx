@@ -20,7 +20,7 @@ export default async function ClassementPage() {
     .select("id", { count: "exact", head: true });
 
   return (
-    <div className="max-w-2xl">
+    <div>
       <h1 className="text-2xl font-semibold text-fg">
         Classement du hackathon
       </h1>

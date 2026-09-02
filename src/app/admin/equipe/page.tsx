@@ -33,7 +33,7 @@ export default async function EquipePage() {
   const membres = profils ?? [];
 
   return (
-    <div className="max-w-3xl">
+    <div>
       <h1 className="text-2xl font-semibold text-fg">Équipe</h1>
       <p className="mt-1 text-sm text-fg-muted">
         Gérez qui a accès à la plateforme : administrateurs (accès complet),

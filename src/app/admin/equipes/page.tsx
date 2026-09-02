@@ -15,7 +15,7 @@ export default async function EquipesPage() {
     .order("created_at", { ascending: true });
 
   return (
-    <div className="max-w-3xl">
+    <div>
       <h1 className="text-2xl font-semibold text-fg">
         Équipes du hackathon
       </h1>
