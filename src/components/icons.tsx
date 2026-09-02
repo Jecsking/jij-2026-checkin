@@ -129,6 +129,19 @@ export function IconeAjouterInvite(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function IconeSunburst(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      {...props}
+    >
+      <path d="M12 0l1.8 8.2L22 6l-6.2 5.8L22 18l-8.2-1.8L12 24l-1.8-7.8L2 18l6.2-6.2L2 6l8.2 2.2z" />
+    </svg>
+  );
+}
+
 export function IconeDeconnexion(props: SVGProps<SVGSVGElement>) {
   return (
     <Icone {...props}>

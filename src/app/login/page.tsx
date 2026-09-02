@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { IconeSunburst } from "@/components/icons";
 
 const DESTINATION_PAR_ROLE: Record<string, string> = {
   admin: "/admin",
@@ -54,64 +54,80 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative flex flex-1 items-center justify-center bg-bg px-6">
-      <div className="absolute right-4 top-4">
-        <ThemeToggle />
-      </div>
-      <form
-        onSubmit={onSubmit}
-        className="w-full max-w-sm space-y-4 rounded-2xl border border-border bg-surface p-8 shadow-sm"
-      >
-        <div className="flex flex-col items-center text-center">
-          <Image
-            src="/logo/icone-jij.png"
-            alt="JIJ 2026"
-            width={56}
-            height={56}
-            className="h-14 w-14"
-          />
-          <h1 className="font-display mt-3 text-xl font-bold text-fg">
+    <div className="flex flex-1 items-center justify-center bg-bg p-4 md:p-8">
+      <div className="grid w-full max-w-4xl overflow-hidden rounded-3xl border border-border bg-surface shadow-xl md:grid-cols-2">
+        <div className="relative hidden flex-col justify-between overflow-hidden bg-brand-navy-deep p-10 md:flex">
+          <div className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-primary/50 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-16 left-24 h-56 w-56 rounded-full bg-primary/70 blur-2xl" />
+
+          <p className="relative max-w-xs font-display text-3xl font-bold leading-tight text-white">
+            Accueillez, notez et célébrez la jeunesse du Bénin.
+          </p>
+
+          <p className="relative text-xs text-white/50">
+            Journée Internationale de la Jeunesse — 2026
+          </p>
+        </div>
+
+        <div className="relative flex flex-col justify-center p-8 sm:p-10">
+          <div className="absolute right-6 top-6">
+            <ThemeToggle />
+          </div>
+
+          <IconeSunburst className="h-8 w-8 text-primary" />
+          <h1 className="mt-4 font-display text-2xl font-bold text-fg">
             Connexion
           </h1>
           <p className="mt-1 text-sm text-fg-muted">
             Espace admin, hôtesses ou jury — JIJ 2026.
           </p>
+
+          <form onSubmit={onSubmit} className="mt-6 space-y-4">
+            <div>
+              <label className="block text-xs text-fg-muted">
+                Votre email
+              </label>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1.5 w-full rounded-lg border border-border bg-surface px-3.5 py-2.5 text-sm text-fg focus:border-primary focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs text-fg-muted">
+                Mot de passe
+              </label>
+              <input
+                type="password"
+                required
+                value={motDePasse}
+                onChange={(e) => setMotDePasse(e.target.value)}
+                className="mt-1.5 w-full rounded-lg border border-border bg-surface px-3.5 py-2.5 text-sm text-fg focus:border-primary focus:outline-none"
+              />
+            </div>
+
+            {erreur && <p className="text-sm text-error-text">{erreur}</p>}
+
+            <button
+              type="submit"
+              disabled={chargement}
+              className="w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-fg transition-colors hover:bg-primary-hover disabled:opacity-60"
+            >
+              {chargement ? "Connexion..." : "Se connecter"}
+            </button>
+          </form>
+
+          <p className="mt-5 text-center text-xs text-fg-muted">
+            Pas encore de compte ?{" "}
+            <span className="font-medium text-fg">
+              Contactez l&apos;administrateur
+            </span>
+          </p>
         </div>
-
-        <div>
-          <label className="block text-sm font-medium text-fg">Email</label>
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg focus:border-primary focus:outline-none"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-fg">
-            Mot de passe
-          </label>
-          <input
-            type="password"
-            required
-            value={motDePasse}
-            onChange={(e) => setMotDePasse(e.target.value)}
-            className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg focus:border-primary focus:outline-none"
-          />
-        </div>
-
-        {erreur && <p className="text-sm text-error-text">{erreur}</p>}
-
-        <button
-          type="submit"
-          disabled={chargement}
-          className="w-full rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-fg transition-colors hover:bg-primary-hover disabled:opacity-60"
-        >
-          {chargement ? "Connexion..." : "Se connecter"}
-        </button>
-      </form>
+      </div>
     </div>
   );
 }
