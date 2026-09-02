@@ -17,6 +17,11 @@ const LIBELLES_STATUT: Record<string, string> = {
   confirme: "Déjà confirmé",
 };
 
+const LIBELLES_TYPE_ENVOI: Record<string, string> = {
+  confirmation: "Envoyé",
+  qr_code: "Code QR",
+};
+
 interface RechercheParams {
   profil?: string;
   participation?: string;
@@ -55,13 +60,27 @@ export default async function CampagnesPage({
     )
   ).sort() as string[];
 
-  const { data: historique } = await supabase
+  const { data: historiqueBrut } = await supabase
     .from("emails_envoyes")
     .select(
-      "id, type, date_envoi, statut_brevo, erreur, participants(nom_complet, email, statut)"
+      "id, participant_id, type, date_envoi, statut_brevo, erreur, participants(nom_complet, email)"
     )
     .order("date_envoi", { ascending: false })
-    .limit(50);
+    .limit(300);
+
+  // Une seule ligne par participant : celle de son événement le plus récent
+  // (donc "code QR" prime sur "envoyé" pour qui a confirmé, puisqu'il est
+  // toujours envoyé après).
+  const parParticipant = new Map<
+    string,
+    NonNullable<typeof historiqueBrut>[number]
+  >();
+  for (const h of historiqueBrut ?? []) {
+    if (!parParticipant.has(h.participant_id)) {
+      parParticipant.set(h.participant_id, h);
+    }
+  }
+  const historique = Array.from(parParticipant.values()).slice(0, 50);
 
   const { data: tousParticipants } = await supabase
     .from("participants")
@@ -179,38 +198,20 @@ export default async function CampagnesPage({
                     {participant?.nom_complet}{" "}
                     <span className="text-fg-muted">{participant?.email}</span>
                   </td>
-                  <td className="px-4 py-2">{h.type}</td>
+                  <td className="px-4 py-2">
+                    {LIBELLES_TYPE_ENVOI[h.type] ?? h.type}
+                  </td>
                   <td className="px-4 py-2 text-fg-muted">
                     {new Date(h.date_envoi).toLocaleString("fr-FR")}
                   </td>
                   <td className="px-4 py-2">
-                    {h.type === "confirmation" ? (
-                      participant?.statut === "confirme" ? (
-                        <span className="rounded-full bg-success-soft px-2 py-0.5 text-xs text-success-text">
-                          Confirmé
-                        </span>
-                      ) : h.statut_brevo === "echec" ? (
-                        <span
-                          title={h.erreur ?? ""}
-                          className="rounded-full bg-error-soft px-2 py-0.5 text-xs text-error-text"
-                        >
-                          Échec d&apos;envoi
-                        </span>
-                      ) : (
-                        <span className="rounded-full bg-error-soft px-2 py-0.5 text-xs text-error-text">
-                          Non confirmé
-                        </span>
-                      )
-                    ) : h.statut_brevo === "envoye" ? (
+                    {h.type === "qr_code" ? (
                       <span className="rounded-full bg-success-soft px-2 py-0.5 text-xs text-success-text">
-                        Envoyé
+                        Confirmé
                       </span>
                     ) : (
-                      <span
-                        title={h.erreur ?? ""}
-                        className="rounded-full bg-error-soft px-2 py-0.5 text-xs text-error-text"
-                      >
-                        Échec
+                      <span className="rounded-full bg-error-soft px-2 py-0.5 text-xs text-error-text">
+                        Non confirmé
                       </span>
                     )}
                   </td>
