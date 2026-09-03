@@ -27,6 +27,7 @@ interface RechercheParams {
   participation?: string;
   statut?: string;
   ville?: string | string[];
+  depuis?: string;
 }
 
 export default async function CampagnesPage({
@@ -149,6 +150,15 @@ export default async function CampagnesPage({
           ))}
         </select>
         <VilleMultiSelect villes={villes} selection={villeSelection} />
+        <label className="flex items-center gap-2 text-sm text-fg-muted">
+          Ajoutés depuis le
+          <input
+            type="date"
+            name="depuis"
+            defaultValue={params.depuis ?? ""}
+            className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
+          />
+        </label>
         <button
           type="submit"
           className="rounded-md bg-accent-crimson px-4 py-2 text-sm font-medium text-white hover:bg-accent-crimson/90"
@@ -164,6 +174,7 @@ export default async function CampagnesPage({
             participation={params.participation}
             statut={params.statut}
             ville={villeSelection}
+            depuis={params.depuis}
           />
         </Suspense>
         <EnvoyerCampagneForm
@@ -171,6 +182,7 @@ export default async function CampagnesPage({
           participation={params.participation}
           statut={params.statut}
           ville={villeSelection}
+          depuis={params.depuis}
         />
       </div>
 

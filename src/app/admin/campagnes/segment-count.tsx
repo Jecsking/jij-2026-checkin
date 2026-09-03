@@ -6,11 +6,13 @@ export async function SegmentCount({
   participation,
   statut,
   ville,
+  depuis,
 }: {
   profil?: string;
   participation?: string;
   statut?: string;
   ville?: string[];
+  depuis?: string;
 }) {
   const supabase = await createClient();
   let requete = supabase
@@ -22,6 +24,7 @@ export async function SegmentCount({
     requete = requete.eq("participation", participation as Participation);
   if (statut) requete = requete.eq("statut", statut as StatutParticipant);
   if (ville && ville.length > 0) requete = requete.in("commune_normalisee", ville);
+  if (depuis) requete = requete.gte("created_at", depuis);
 
   const { count } = await requete;
 

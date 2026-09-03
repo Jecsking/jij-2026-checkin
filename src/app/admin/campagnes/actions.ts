@@ -38,6 +38,7 @@ export async function envoyerCampagneAction(
   const participation = (formData.get("participation") as string) || undefined;
   const statut = (formData.get("statut") as string) || undefined;
   const ville = formData.getAll("ville").filter(Boolean) as string[];
+  const depuis = (formData.get("depuis") as string) || undefined;
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL;
   if (!appUrl) {
@@ -55,6 +56,7 @@ export async function envoyerCampagneAction(
     requete = requete.eq("participation", participation as Participation);
   if (statut) requete = requete.eq("statut", statut as StatutParticipant);
   if (ville.length > 0) requete = requete.in("commune_normalisee", ville);
+  if (depuis) requete = requete.gte("created_at", depuis);
 
   const { data: participants, error } = await requete;
 
